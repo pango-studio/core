@@ -1,0 +1,19 @@
+{
+  "name": "docs",
+  "version": "0.0.1",
+  "description": "Documentation for the Salt Core package",
+  "main": "index.js",
+  "authors": {
+    "name": "Jason Tame",
+    "email": "jason@saltcampus.co"
+  },
+  "repository": "salt/docs",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.5.3"
+  }
+}
