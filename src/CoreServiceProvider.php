@@ -4,6 +4,7 @@ namespace Salt\Core;
 
 use Illuminate\Routing\Router;
 use Salt\Core\Commands\CoreCommand;
+use Salt\Core\Commands\GenerateOptionsClassCommand;
 use Salt\Core\Commands\GenerateSeederClassCommand;
 use Salt\Core\Middleware\PermissionChecker;
 use Spatie\LaravelPackageTools\Package;
@@ -18,6 +19,7 @@ class CoreServiceProvider extends PackageServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
+                GenerateOptionsClassCommand::class,
                 GenerateSeederClassCommand::class,
             ]);
         }

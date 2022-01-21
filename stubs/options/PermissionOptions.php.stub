@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Options;
+
+class PermissionOptions
+{
+    public const VIEW_ADMIN_DASHBOARD = 'view-admin-dashboard';
+    public const MANAGE_USERS = 'manage-users';
+
+
+    public static $permissionsArray = [
+        self::VIEW_ADMIN_DASHBOARD,
+        self::MANAGE_USERS,
+    ];
+}
