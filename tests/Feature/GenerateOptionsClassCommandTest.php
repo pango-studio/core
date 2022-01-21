@@ -10,7 +10,7 @@ use function PHPUnit\Framework\assertTrue;
 it(' creates a new PermissionOptions class', function () {
     $className = "PermissionOptions";
     // destination path
-    $optionsClass = app_path("database/options/$className.php");
+    $optionsClass = app_path("Options/$className.php");
 
     // make sure we're starting from a clean state
     if (File::exists($optionsClass)) {
@@ -31,7 +31,7 @@ it(' creates a new PermissionOptions class', function () {
 it(' creates a new RoleOptions class', function () {
     $className = "RoleOptions";
     // destination path
-    $optionsClass = app_path("database/options/$className.php");
+    $optionsClass = app_path("Options/$className.php");
 
     // make sure we're starting from a clean state
     if (File::exists($optionsClass)) {

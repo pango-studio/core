@@ -21,7 +21,7 @@ class GenerateOptionsClassCommand extends GeneratorCommand
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\database\options';
+        return $rootNamespace . '\Options';
     }
 
     public function handle()
