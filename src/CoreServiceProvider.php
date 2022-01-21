@@ -2,12 +2,20 @@
 
 namespace Salt\Core;
 
+use Illuminate\Routing\Router;
 use Salt\Core\Commands\CoreCommand;
+use Salt\Core\Middleware\PermissionChecker;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class CoreServiceProvider extends PackageServiceProvider
 {
+    public function bootingPackage()
+    {
+        $router = $this->app->make(Router::class);
+        $router->aliasMiddleware('hasPermission', PermissionChecker::class);
+    }
+
     public function configurePackage(Package $package): void
     {
         /*
@@ -19,7 +27,13 @@ class CoreServiceProvider extends PackageServiceProvider
             ->name('core')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_core_table')
-            ->hasCommand(CoreCommand::class);
+            ->hasMigrations(
+                [
+                    'create_permissions_table',
+                    'create_roles_table',
+                    'create_permission_roles_table',
+                    'create_role_users_table',
+                ]
+            )->hasCommand(CoreCommand::class);
     }
 }
