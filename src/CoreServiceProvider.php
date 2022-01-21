@@ -18,7 +18,7 @@ class CoreServiceProvider extends PackageServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                GenerateSeederClassCommand::class
+                GenerateSeederClassCommand::class,
             ]);
         }
     }

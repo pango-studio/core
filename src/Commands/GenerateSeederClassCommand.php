@@ -15,6 +15,7 @@ class GenerateSeederClassCommand extends GeneratorCommand
     protected function getStub()
     {
         $seederClassName = $this->getNameInput();
+
         return __DIR__ . "/../../stubs/seeders/$seederClassName.php.stub";
     }
 
