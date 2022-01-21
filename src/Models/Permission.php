@@ -9,7 +9,7 @@ class Permission extends Model
 {
     use HasFactory;
 
-    public static function permissionOptions()
+    public static function options()
     {
         return config('core.permissions');
     }

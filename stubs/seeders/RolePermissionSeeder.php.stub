@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use Salt\Core\Models\Role;
 use Illuminate\Database\Seeder;
-use Salt\Core\Permission;
-use Salt\Core\Role;
+use Salt\Core\Models\Permission;
+use Salt\Core\Options\PermissionOptions;
+use Salt\Core\Options\RoleOptions;
 
 class RolePermissionSeeder extends Seeder
 {
@@ -16,90 +18,12 @@ class RolePermissionSeeder extends Seeder
     public function run()
     {
         // Set Super Admin permissions
-        Role::where('name', Role::SUPER_ADMIN['name'])->firstOrFail()->permissions()->sync(Permission::all());
+        Role::where('name', RoleOptions::SUPER_ADMIN['name'])->firstOrFail()->permissions()->sync(Permission::all());
 
         // Set Admin permissions
         $admin_permissions = [
-            Permission::MANAGE_RESOURCES,
-            Permission::MANAGE_FACULTIES,
-            Permission::MANAGE_COHORTS,
-            Permission::MANAGE_GROUPS,
-            Permission::MANAGE_USERS,
-            Permission::MANAGE_ROLES,
-            Permission::MANAGE_ENROLMENTS,
-            Permission::MANAGE_FAQS,
-            Permission::MANAGE_CERTIFICATES,
-            Permission::MANAGE_RESOURCE_EXPORTS,
-            Permission::MANAGE_EXPORTS,
-            Permission::MANAGE_RESOURCE_IMPORTS,
-            Permission::MANAGE_USER_IMPORTS,
-            Permission::MANAGE_NOTIFICATIONS,
-            Permission::MANAGE_GRADING,
-            Permission::MANAGE_GRADE_IMPORTS,
-            Permission::MANAGE_COACHING,
-            Permission::MANAGE_LIBRARIES,
-            Permission::MANAGE_QUESTION_BANKS,
-            Permission::MANAGE_USER_TAGS,
-            Permission::MANAGE_TAGS,
-            Permission::MANAGE_SURVEYS,
-            Permission::MANAGE_HELPDESK,
-            Permission::VIEW_INSIGHTS,
-            Permission::VIEW_PROGRESS,
-            Permission::VIEW_LOGS,
-            Permission::VIEW_ADMIN_DASHBOARD
+            PermissionOptions::VIEW_ADMIN_DASHBOARD
         ];
-
-        Role::where('name', Role::ADMIN['name'])->firstOrFail()->permissions()->sync(Permission::whereIn('name', $admin_permissions)->get());
-
-        // Set Editor permissions
-        $editor_permissions = [
-            Permission::MANAGE_RESOURCES,
-            Permission::MANAGE_RESOURCE_EXPORTS,
-            Permission::MANAGE_EXPORTS,
-            Permission::MANAGE_RESOURCE_IMPORTS,
-            Permission::VIEW_INSIGHTS,
-            Permission::VIEW_PROGRESS,
-            Permission::MANAGE_SURVEYS,
-            Permission::MANAGE_QUESTION_BANKS,
-            Permission::MANAGE_USER_TAGS,
-            Permission::MANAGE_TAGS,
-            Permission::VIEW_LOGS,
-            Permission::MANAGE_HELPDESK,
-            Permission::VIEW_ADMIN_DASHBOARD
-        ];
-
-        Role::where('name', Role::EDITOR['name'])->firstOrFail()->permissions()->sync(Permission::whereIn('name', $editor_permissions)->get());
-
-        // Set Coach permissions
-        $coach_permissions = [
-            Permission::VIEW_INSIGHTS,
-            Permission::VIEW_PROGRESS,
-            Permission::VIEW_ADMIN_DASHBOARD,
-            Permission::MANAGE_GROUPS,
-            Permission::MANAGE_GRADING,
-            Permission::MANAGE_GRADE_IMPORTS,
-            Permission::MANAGE_COACHING,
-            Permission::MANAGE_CERTIFICATES,
-            Permission::MANAGE_NOTIFICATIONS,
-            Permission::MANAGE_HELPDESK,
-            Permission::VIEW_LOGS
-
-        ];
-
-        Role::where('name', Role::COACH['name'])->firstOrFail()->permissions()->sync(Permission::whereIn('name', $coach_permissions)->get());
-
-        // Set Educator permissions
-        $educator_permissions = [
-            Permission::VIEW_INSIGHTS,
-            Permission::VIEW_PROGRESS,
-            Permission::VIEW_ADMIN_DASHBOARD,
-            Permission::MANAGE_CERTIFICATES,
-            Permission::MANAGE_GROUPS,
-            Permission::MANAGE_NOTIFICATIONS,
-            Permission::MANAGE_HELPDESK,
-            Permission::VIEW_LOGS
-        ];
-
-        Role::where('name', Role::EDUCATOR['name'])->firstOrFail()->permissions()->sync(Permission::whereIn('name', $educator_permissions)->get());
+        Role::where('name', RoleOptions::ADMIN['name'])->firstOrFail()->permissions()->sync(Permission::whereIn('name', $admin_permissions)->get());
     }
 }

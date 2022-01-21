@@ -54,5 +54,5 @@ it('can have related roles', function () {
 it('has an array of permission options', function () {
     $permission = Permission::factory()->create();
 
-    assertTrue(count($permission::permissionOptions()) > 0);
+    assertTrue(count($permission::options()) > 0);
 });

@@ -9,7 +9,7 @@ class Role extends Model
 {
     use HasFactory;
 
-    public static function roleOptions()
+    public static function options()
     {
         return config('core.roles');
     }

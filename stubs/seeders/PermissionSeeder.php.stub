@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Salt\Core\Permission;
+use Salt\Core\Models\Permission;
 
 class PermissionSeeder extends Seeder
 {
@@ -14,7 +14,7 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        foreach (Permission::$permissionsArray as $permission) {
+        foreach (Permission::options() as $permission) {
             Permission::updateOrCreate(['name' => $permission]);
         }
     }
