@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Salt\\Core\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Salt\\Core\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
     }
 
@@ -28,9 +28,21 @@ class TestCase extends Orchestra
     {
         config()->set('database.default', 'testing');
 
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_core_table.php.stub';
-        $migration->up();
-        */
+        $this->runMigrations();
+    }
+
+    protected function runMigrations()
+    {
+        $permissionsTable = include __DIR__ . '/../database/migrations/create_permissions_table.php.stub';
+        $permissionsTable->up();
+
+        $rolesTable = include __DIR__ . '/../database/migrations/create_roles_table.php.stub';
+        $rolesTable->up();
+
+        $permissionRolesTable = include  __DIR__ . '/../database/migrations/create_permission_roles_table.php.stub';
+        $permissionRolesTable->up();
+
+        $roleUsersTable = include  __DIR__ . '/../database/migrations/create_role_users_table.php.stub';
+        $roleUsersTable->up();
     }
 }
