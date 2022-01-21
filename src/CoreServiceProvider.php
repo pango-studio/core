@@ -4,6 +4,7 @@ namespace Salt\Core;
 
 use Illuminate\Routing\Router;
 use Salt\Core\Commands\CoreCommand;
+use Salt\Core\Commands\GenerateSeederClassCommand;
 use Salt\Core\Middleware\PermissionChecker;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -14,6 +15,12 @@ class CoreServiceProvider extends PackageServiceProvider
     {
         $router = $this->app->make(Router::class);
         $router->aliasMiddleware('hasPermission', PermissionChecker::class);
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                GenerateSeederClassCommand::class
+            ]);
+        }
     }
 
     public function configurePackage(Package $package): void
