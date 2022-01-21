@@ -2,9 +2,9 @@
 
 namespace Salt\Core;
 
+use Salt\Core\Commands\CoreCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Salt\Core\Commands\CoreCommand;
 
 class CoreServiceProvider extends PackageServiceProvider
 {
