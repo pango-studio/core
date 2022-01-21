@@ -9,7 +9,9 @@ trait HasRoles
 {
     public function scopeOfRole(Builder $query, Role $role = null)
     {
-        if (!$role) return $query;
+        if (!$role) {
+            return $query;
+        }
 
         return $query->whereHas('roles', function ($query) use ($role) {
             return $query->where('role_id', $role->id);
