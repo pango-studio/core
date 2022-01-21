@@ -18,12 +18,12 @@ class PermissionChecker
      */
     public function handle($request, Closure $next, string $permission)
     {
-        if (! $request->user()) {
+        if (!$request->user()) {
             return redirect()->route('login');
         }
 
         $user = $request->user();
-        if (! $user->hasPermission($permission)) {
+        if (!$user->hasPermission($permission)) {
             throw new AuthorizationException(__('middleware.noPermission'));
         }
 
