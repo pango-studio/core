@@ -2,7 +2,6 @@
 
 namespace Salt\Core\Tests;
 
-use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Salt\Core\Traits\HasRoles;
 
