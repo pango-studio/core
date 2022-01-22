@@ -46,7 +46,7 @@ module.exports = {
                 {
                     title: "Guide",
                     collapsable: false,
-                    children: ["permissions-roles"],
+                    children: ["permissions-roles", "settings"],
                 },
             ],
         },
