@@ -58,5 +58,8 @@ class TestCase extends Orchestra
 
         $roleUsersTable = include  __DIR__ . '/../database/migrations/create_role_users_table.php.stub';
         $roleUsersTable->up();
+
+        $settingsTable = include  __DIR__ . '/../database/migrations/create_settings_table.php.stub';
+        $settingsTable->up();
     }
 }
