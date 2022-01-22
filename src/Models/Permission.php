@@ -9,6 +9,8 @@ class Permission extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public static function options()
     {
         return config('core.permissions');
