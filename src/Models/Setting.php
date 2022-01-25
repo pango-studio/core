@@ -5,17 +5,16 @@ namespace Salt\Core\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
+/**
+ * Salt\Core\Models\Setting
+ * 
+ * @property string $name
+ * @property string $value
+ * @property string $type: string, boolean, integer
+ * 
+ */
 class Setting extends Model
 {
-    /** @var string The name of the setting */
-    public $name;
-
-    /** @var string The data type of the settings value, e.g string, boolean, integer */
-    public $type;
-
-    /** @var string The value of the setting */
-    public $value;
-
     protected $guarded = [];
 
     /**

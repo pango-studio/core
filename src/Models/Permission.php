@@ -5,6 +5,11 @@ namespace Salt\Core\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Salt\Core\Models\Permission
+ * 
+ * @property string $name
+ */
 class Permission extends Model
 {
     use HasFactory;

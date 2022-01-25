@@ -5,11 +5,15 @@ namespace Salt\Core\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Salt\Core\Models\Role
+ * 
+ * @property string $name
+ * @property string $label
+ */
 class Role extends Model
 {
     use HasFactory;
-    /** @var string The name of the role */
-    public $name;
 
     protected $guarded = [];
 

@@ -151,7 +151,6 @@ it("can send a request to change the user's password", function () {
             'sub' => faker()->word,
         ]
     );
-
     Http::fake([
         config("core.auth0.api.audience") . "users/" . $user->sub
         => Http::response(true, 200),
