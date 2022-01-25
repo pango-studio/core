@@ -7,11 +7,15 @@ use Illuminate\Support\Collection;
 
 class Setting extends Model
 {
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
+    /** @var string The name of the setting */
+    public $name;
+
+    /** @var string The data type of the settings value, e.g string, boolean, integer  */
+    public $type;
+
+    /** @var string The value of the setting */
+    public $value;
+
     protected $guarded = [];
 
     /**
