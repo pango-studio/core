@@ -1,7 +1,7 @@
 <?php
 
-use function PHPUnit\Framework\assertTrue;
 use function PHPUnit\Framework\assertFalse;
+use function PHPUnit\Framework\assertTrue;
 
 use Salt\Core\Models\Permission;
 use Salt\Core\Models\Role;
