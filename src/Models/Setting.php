@@ -2,8 +2,8 @@
 
 namespace Salt\Core\Models;
 
-use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class Setting extends Model
 {
@@ -31,7 +31,6 @@ class Setting extends Model
         return self::create(['name' => $key, 'value' => $value, 'type' => $type]);
     }
 
-
     /**
      * Get the value for a setting
      *
@@ -43,6 +42,7 @@ class Setting extends Model
     {
         if (self::has($key)) {
             $setting = self::getAllSettings()->where('name', $key)->first();
+
             return self::castValue($setting->value, $setting->type);
         }
 
@@ -53,7 +53,7 @@ class Setting extends Model
      * Set a value for a setting
      *
      * @param string $key
-     * @param mixed $value 
+     * @param mixed $value
      * @param string $type the data type of the settings value, e.g string, boolean, integer
      * @return mixed The value for the setting added
      */
@@ -63,19 +63,18 @@ class Setting extends Model
             return $setting->update([
                 'name' => $key,
                 'value' => $value,
-                'type' => $type
+                'type' => $type,
             ]) ? $value : false;
         }
 
         return self::add($key, $value, $type);
     }
 
-
     /**
      * Remove a setting
      *
      * @param string $key
-     * @return boolean|null
+     * @return bool|null
      */
     public static function remove(string $key): ?bool
     {
@@ -90,7 +89,7 @@ class Setting extends Model
      * Check if a setting exists
      *
      * @param string $key
-     * @return boolean
+     * @return bool
      */
     public static function has(string $key): bool
     {
@@ -129,6 +128,7 @@ class Setting extends Model
     {
         return self::all()->each(function ($setting) {
             $setting->value = self::castValue($setting->value, $setting->type);
+
             return $setting;
         });
     }

@@ -1,13 +1,13 @@
 <?php
 
-use Salt\Core\Models\Setting;
-
 use function Pest\Laravel\assertDatabaseHas;
+
 use function Pest\Laravel\assertDatabaseMissing;
 use function PHPUnit\Framework\assertCount;
 use function PHPUnit\Framework\assertEquals;
-use function PHPUnit\Framework\assertTrue;
 use function PHPUnit\Framework\assertFalse;
+use function PHPUnit\Framework\assertTrue;
+use Salt\Core\Models\Setting;
 
 beforeEach(function () {
     $this->key = "test-setting";
@@ -21,13 +21,12 @@ it('can add a new setting', function () {
         'settings',
         [
             'name' => $this->key,
-            'value' => $this->val
+            'value' => $this->val,
         ]
     );
 });
 
 it('can get a settings value', function () {
-
     $setting = Setting::get($this->key);
 
     assertEquals($this->val, $setting);
