@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
+    use HasFactory;
     /** @var string The name of the role */
     public $name;
-
-    use HasFactory;
 
     protected $guarded = [];
 

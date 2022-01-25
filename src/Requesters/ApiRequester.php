@@ -7,7 +7,6 @@ use Salt\Core\Exceptions\ApiException;
 
 class ApiRequester implements RequesterInterface
 {
-
     /** @var string */
     protected $token;
 

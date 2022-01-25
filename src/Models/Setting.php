@@ -10,7 +10,7 @@ class Setting extends Model
     /** @var string The name of the setting */
     public $name;
 
-    /** @var string The data type of the settings value, e.g string, boolean, integer  */
+    /** @var string The data type of the settings value, e.g string, boolean, integer */
     public $type;
 
     /** @var string The value of the setting */
