@@ -3,7 +3,6 @@
 namespace Salt\Core\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Schema\Blueprint;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Salt\Core\CoreServiceProvider;
 
@@ -12,8 +11,6 @@ class TestCase extends Orchestra
     protected function setUp(): void
     {
         parent::setUp();
-
-        $this->setUpDatabase($this->app);
 
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'Salt\\Core\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
@@ -34,17 +31,6 @@ class TestCase extends Orchestra
         $this->runMigrations();
     }
 
-    protected function setUpDatabase($app)
-    {
-        $app['db']->connection()->getSchemaBuilder()->create('users', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('email');
-            $table->softDeletes();
-        });
-
-        $this->testUser = User::create(['email' => 'test@user.com']);
-    }
-
     protected function runMigrations()
     {
         $permissionsTable = include __DIR__ . '/../database/migrations/create_permissions_table.php.stub';
@@ -61,5 +47,8 @@ class TestCase extends Orchestra
 
         $settingsTable = include  __DIR__ . '/../database/migrations/create_settings_table.php.stub';
         $settingsTable->up();
+
+        $usersTable = include  __DIR__ . '/../database/migrations/create_users_table.php.stub';
+        $usersTable->up();
     }
 }

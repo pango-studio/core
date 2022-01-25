@@ -33,14 +33,15 @@ class CoreServiceProvider extends PackageServiceProvider
         $package
             ->name('core')
             ->hasConfigFile()
-            ->hasViews()
+            ->hasRoute('web')
             ->hasMigrations(
                 [
                     'create_permissions_table',
                     'create_roles_table',
                     'create_permission_roles_table',
                     'create_role_users_table',
-                    'create_settings_table'
+                    'create_settings_table',
+                    'create_users_table'
                 ]
             )->hasCommand(CoreCommand::class);
     }
