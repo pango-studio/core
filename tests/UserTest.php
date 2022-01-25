@@ -10,7 +10,7 @@ it('has a name', function () {
     $user = User::factory()
         ->create(
             [
-                'name' => $name
+                'name' => $name,
             ]
         );
     assertEquals($name, $user->name);
@@ -21,7 +21,7 @@ it('has an email address', function () {
     $user = User::factory()
         ->create(
             [
-                'email' => $email
+                'email' => $email,
             ]
         );
     assertEquals($email, $user->email);
@@ -32,7 +32,7 @@ it('can have a sub', function () {
     $user = User::factory()
         ->create(
             [
-                'sub' => $sub
+                'sub' => $sub,
             ]
         );
     assertEquals($sub, $user->sub);
