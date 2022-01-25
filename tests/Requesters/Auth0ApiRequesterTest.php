@@ -4,15 +4,15 @@ use Carbon\Carbon;
 // use App\Helpers\DateHelper;
 // use App\Jobs\DispatchWelcomeEmailJob;
 
-use Salt\Core\Models\User;
-use function Pest\Faker\faker;
-
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Queue;
-use function PHPUnit\Framework\assertTrue;
-use Salt\Core\Requesters\Auth0ApiRequester;
+
+use function Pest\Faker\faker;
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertIsArray;
+use function PHPUnit\Framework\assertTrue;
+use Salt\Core\Models\User;
+use Salt\Core\Requesters\Auth0ApiRequester;
 
 it('can fetch user details ', function () {
     $user = User::factory('App\User')->create(['sub' => faker()->word]);
@@ -28,7 +28,7 @@ it('can fetch user details ', function () {
         ),
     ]);
 
-    $response = (new Auth0ApiRequester)->fetchAuth0UserById($user->sub);
+    $response = (new Auth0ApiRequester())->fetchAuth0UserById($user->sub);
     assertEquals($user->sub, $response->user_id);
     assertEquals($user->email, $response->email);
 });
@@ -48,7 +48,7 @@ it('can get user details via an access token', function () {
         ),
     ]);
 
-    $response = (new Auth0ApiRequester)->getUserInfo($access_token);
+    $response = (new Auth0ApiRequester())->getUserInfo($access_token);
     assertEquals($user->sub, $response->user_id);
     assertEquals($user->email, $response->email);
 });
@@ -63,13 +63,13 @@ it('can fetch user details from Auth0 with a given email', function () {
                 [
                     'user_id' => $user->sub,
                     'email' => $user->email,
-                ]
+                ],
             ],
             200
         ),
     ]);
 
-    $response = (new Auth0ApiRequester)->fetchAuth0UserByEmail($user->email);
+    $response = (new Auth0ApiRequester())->fetchAuth0UserByEmail($user->email);
     assertEquals($user->sub, $response[0]->user_id);
     assertEquals($user->email, $response[0]->email);
 });
@@ -84,13 +84,13 @@ it('can search for user details from Auth0 with a given email', function () {
                 [
                     'user_id' => $user->sub,
                     'email' => $user->email,
-                ]
+                ],
             ],
             200
         ),
     ]);
 
-    $response = (new Auth0ApiRequester)->searchAuth0UserByEmail($user->email);
+    $response = (new Auth0ApiRequester())->searchAuth0UserByEmail($user->email);
     assertIsArray($response);
     assertEquals($user->sub, $response[0]->user_id);
     assertEquals($user->email, $response[0]->email);
@@ -115,13 +115,13 @@ it('can create a new Auth0 user', function () {
         config("api.audience") . "tickets/password-change"
         => Http::response(
             [
-                'ticket' => faker()->word
+                'ticket' => faker()->word,
             ],
             200
         ),
     ]);
 
-    $response = (new Auth0ApiRequester)->createAuth0User($user->email, $user->name, 'password');
+    $response = (new Auth0ApiRequester())->createAuth0User($user->email, $user->name, 'password');
     assertEquals($user->sub, $response->user_id);
     assertEquals($user->email, $response->email);
 });
@@ -140,7 +140,7 @@ it('can update the details for a user on Auth0', function () {
         ),
     ]);
 
-    $response = (new Auth0ApiRequester)->updateAuth0User($user->sub, $user->email, $user->name);
+    $response = (new Auth0ApiRequester())->updateAuth0User($user->sub, $user->email, $user->name);
     assertEquals($user->sub, $response->user_id);
     assertEquals($user->email, $response->email);
 });
@@ -157,7 +157,7 @@ it("can send a request to change the user's password", function () {
         => Http::response(true, 200),
     ]);
 
-    $response = (new Auth0ApiRequester)->changePassword($user->sub, 'password');
+    $response = (new Auth0ApiRequester())->changePassword($user->sub, 'password');
     assertTrue($response);
 });
 
@@ -178,7 +178,7 @@ it('can generate a password reset link for the user', function () {
         ),
     ]);
 
-    $response = (new Auth0ApiRequester)->generatePasswordResetLink($user->sub);
+    $response = (new Auth0ApiRequester())->generatePasswordResetLink($user->sub);
 
     assertEquals($ticket, $response);
 });
@@ -191,13 +191,13 @@ it('can delete an Auth0 user', function () {
         => Http::response(
             [
                 'statusCode' => 204,
-                'message' => "User deleted"
+                'message' => "User deleted",
             ],
             204
         ),
     ]);
 
-    $response = (new Auth0ApiRequester)->deleteAuth0User($user->sub);
+    $response = (new Auth0ApiRequester())->deleteAuth0User($user->sub);
     assertEquals("204", $response->statusCode);
 });
 
@@ -207,12 +207,12 @@ it('can get the roles for an Auth0 user', function () {
         [
             'id' => faker()->word,
             'name' => 'admin',
-            'description' => faker()->sentence()
+            'description' => faker()->sentence(),
         ],
         [
             'id' => faker()->word,
             'name' => 'user',
-            'description' => faker()->sentence()
+            'description' => faker()->sentence(),
         ],
     ];
 
@@ -224,7 +224,7 @@ it('can get the roles for an Auth0 user', function () {
         ),
     ]);
 
-    $response = (new Auth0ApiRequester)->getRolesAuth0User($user->sub);
+    $response = (new Auth0ApiRequester())->getRolesAuth0User($user->sub);
     assertEquals($roles[0]['id'], $response[0]->id);
 });
 
@@ -238,13 +238,13 @@ it('can fetch login logs', function () {
             'date' => faker()->date(),
             'type' => 'fu',
             'user_name' => faker()->email,
-            'description' => faker()->sentence
+            'description' => faker()->sentence,
         ],
         [
             'date' => faker()->date(),
             'type' => 's',
             'user_name' => faker()->email,
-            'description' => faker()->sentence
+            'description' => faker()->sentence,
         ],
     ];
 
@@ -253,8 +253,8 @@ it('can fetch login logs', function () {
             'date' => faker()->date(),
             'type' => 's',
             'user_name' => $user->email,
-            'description' => faker()->sentence
-        ]
+            'description' => faker()->sentence,
+        ],
     ];
 
     // Fake full log query
@@ -275,11 +275,11 @@ it('can fetch login logs', function () {
         ),
     ]);
 
-    $response = (new Auth0ApiRequester)->getLoginLogs($start, $end);
+    $response = (new Auth0ApiRequester())->getLoginLogs($start, $end);
     assertEquals($full_logs[0]['date'], $response[0]->date);
     assertEquals($full_logs[1]['date'], $response[1]->date);
 
-    $response = (new Auth0ApiRequester)->getLoginLogs($start, $end, $user->sub);
+    $response = (new Auth0ApiRequester())->getLoginLogs($start, $end, $user->sub);
     assertEquals($user_logs[0]['date'], $response[0]->date);
     assertEquals($user_logs[0]['user_name'], $user->email);
 });
@@ -291,11 +291,11 @@ it('can start a passwordless email login flow', function () {
         "https://" . config("core.auth0.api.domain") . "/passwordless/start"
         => Http::response([
             'id' => $user->sub,
-            'email' => $user->email
-        ], 200)
+            'email' => $user->email,
+        ], 200),
     ]);
 
-    $response = (new Auth0ApiRequester)->startPasswordlessEmailFlow($user->email);
+    $response = (new Auth0ApiRequester())->startPasswordlessEmailFlow($user->email);
 
     assertEquals($user->sub, $response->id);
     assertEquals($user->email, $response->email);
@@ -311,13 +311,13 @@ it('can verify a passwordless email code', function () {
             [
                 'id_token' => faker()->word,
                 'access_token' => $access_token,
-                'refresh_token' => faker()->word
+                'refresh_token' => faker()->word,
             ],
             200
-        )
+        ),
     ]);
 
-    $response = (new Auth0ApiRequester)->verifyPasswordlessEmailCode($user->email, '1234');
+    $response = (new Auth0ApiRequester())->verifyPasswordlessEmailCode($user->email, '1234');
 
     assertEquals($access_token, $response->access_token);
 });
@@ -331,13 +331,13 @@ it('can verify an authorization code', function () {
             [
                 'id_token' => faker()->word,
                 'access_token' => $access_token,
-                'refresh_token' => faker()->word
+                'refresh_token' => faker()->word,
             ],
             200
-        )
+        ),
     ]);
 
-    $response = (new Auth0ApiRequester)->verifyAuthorizationCode('1234');
+    $response = (new Auth0ApiRequester())->verifyAuthorizationCode('1234');
     assertEquals($access_token, $response->access_token);
 });
 
@@ -353,12 +353,12 @@ it('can link two accounts together', function () {
             [
                 'id_token' => faker()->word,
                 'access_token' => $access_token,
-                'refresh_token' => faker()->word
+                'refresh_token' => faker()->word,
             ],
             200
-        )
+        ),
     ]);
 
-    $response = (new Auth0ApiRequester)->linkUserAccounts($primary->sub, $secondary->sub);
+    $response = (new Auth0ApiRequester())->linkUserAccounts($primary->sub, $secondary->sub);
     assertEquals($access_token, $response->access_token);
 });

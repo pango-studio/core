@@ -5,7 +5,6 @@ namespace Salt\Core\Requesters;
 use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Mail;
 use Salt\Core\Exceptions\ApiException;
 
 class Auth0ApiRequester extends ApiRequester implements RequesterInterface
@@ -17,16 +16,15 @@ class Auth0ApiRequester extends ApiRequester implements RequesterInterface
 
     /**
      * Fetch the user details from the Auth0 api
-     * 
+     *
      * Docs - https://auth0.com/docs/api/management/v2#!/Users/get_users_by_id
-     * 
+     *
      * @param String $user_id the Auth0 user id
      *
      * @return Object $user an object containing all the user deta for the Auth0 user
      */
     public function fetchAuth0UserById(String $user_id): Object
     {
-
         $method = "GET";
 
         $url = config("core.auth0.api.audience") . "users/" . $user_id;
@@ -39,9 +37,9 @@ class Auth0ApiRequester extends ApiRequester implements RequesterInterface
 
     /**
      * Fetch the user details from the Auth0 api via access token
-     * 
+     *
      * Docs - https://auth0.com/docs/api/authentication#get-user-info
-     * 
+     *
      * @param String $access_token the Auth0 access token
      *
      * @return Object $user an object containing all the user deta for the Auth0 user
@@ -60,33 +58,33 @@ class Auth0ApiRequester extends ApiRequester implements RequesterInterface
     }
 
     /**
-     * 
-     * Fetch the user details from Auth0 associated with a given email address. 
+     *
+     * Fetch the user details from Auth0 associated with a given email address.
      * NB! Use with caution: in most cases this returns an item with one array, but it might return multiple entries
-     * 
+     *
      * Docs - https://auth0.com/docs/api/management/v2#!/Users_By_Email/get_users_by_email
-     * 
+     *
      * @param String $email The email to search for
      * @return Array An array of user details which are associated with the email address
      */
     public function fetchAuth0UserByEmail(String $email): array
     {
-
         $method = "GET";
         $url = config("core.auth0.api.audience") . "users-by-email?email=" . $email;
 
         $response = $this->makeApiRequest($method, $url);
 
         $user_data = json_decode($response);
+
         return $user_data;
     }
 
     /**
-     * 
-     * Find a user from Auth0 associated with a given email address & current connection. 
-     * 
+     *
+     * Find a user from Auth0 associated with a given email address & current connection.
+     *
      * Docs - https://auth0.com/docs/api/management/v2#!/Users_By_Email/get_users_by_email
-     * 
+     *
      * @param String $email The email to search for
      * @return Array An array of user details which are associated with the email address
      */
@@ -102,15 +100,16 @@ class Auth0ApiRequester extends ApiRequester implements RequesterInterface
         $response = $this->makeApiRequest($method, $url);
 
         $user_data = json_decode($response);
+
         return $user_data;
     }
 
     /**
      * Creates a new user on auth0 using the given name and email address
-     * 
+     *
      * Docs - https://auth0.com/docs/api/management/v2#!/Users/post_users
      *
-     * @param String $email Email address of the user to be created 
+     * @param String $email Email address of the user to be created
      * @param String $name Full name of the user to be created
      * @param String|null $password the initial password to set for the user (optional)
      * @return Object $auth0_user The data for the newly created Auth0 user
@@ -123,9 +122,9 @@ class Auth0ApiRequester extends ApiRequester implements RequesterInterface
         // If a password was not passed to this method, generate a dummy one
         if (!$password) {
             /**
-             * It doesn't really matter what this password is, as it won't be used to login. 
-             * It should however be hashed so that someone isn't able to login as the user 
-             * before they have had a chance to change the password. 
+             * It doesn't really matter what this password is, as it won't be used to login.
+             * It should however be hashed so that someone isn't able to login as the user
+             * before they have had a chance to change the password.
              */
             $password = password_hash("TestPassword123", PASSWORD_DEFAULT);
         }
@@ -148,13 +147,13 @@ class Auth0ApiRequester extends ApiRequester implements RequesterInterface
 
     /**
      * Updates the user's email address and name on Auth0
-     * 
+     *
      * Docs - https://auth0.com/docs/api/management/v2#!/Users/patch_users_by_id
      *
      * @param String $user_id the Auth0 ID
      * @param String $email The email address to be updated
      * @param String $name The name to be updated
-     * 
+     *
      * @return Object The updated Auth0 user data
      */
     public function updateAuth0User(String $user_id, String $email, String $name): Object
@@ -170,6 +169,7 @@ class Auth0ApiRequester extends ApiRequester implements RequesterInterface
         $response = $this->makeApiRequest($method, $url, $body);
 
         $auth0_user = json_decode($response);
+
         return $auth0_user;
     }
 
@@ -177,9 +177,9 @@ class Auth0ApiRequester extends ApiRequester implements RequesterInterface
      * Update the user_metadata property of the given Auth0 user
      *
      * Docs - https://auth0.com/docs/users/guides/update-metadata-properties-with-management-api
-     * 
+     *
      * @param String $user_id the Auth0 ID
-     * @param Mixed $meta the meta properties to be updated. 
+     * @param Mixed $meta the meta properties to be updated.
      * @return Mixed the updated user_metadata for the given Auth0 user
      */
     public function updateAuth0UserMeta(String $user_id, $meta)
@@ -199,7 +199,7 @@ class Auth0ApiRequester extends ApiRequester implements RequesterInterface
 
     /**
      * Change the user's password
-     * 
+     *
      * Docs - https://auth0.com/docs/connections/database/password-change#use-the-management-api
      *
      * @param String $user_id
@@ -224,7 +224,7 @@ class Auth0ApiRequester extends ApiRequester implements RequesterInterface
      * Generates a password reset link for the given Auth0 user
      *
      * Docs - https://auth0.com/docs/api/management/v2#!/Tickets/post_password_change
-     * 
+     *
      * @param String $user_id the Auth0 ID for the user
      * @return String $response includes a ticket property which contains
      * a URL for resetting the password
@@ -237,16 +237,17 @@ class Auth0ApiRequester extends ApiRequester implements RequesterInterface
         $body = [
             'user_id' => $user_id,
             'result_url' => config('core.url'),
-            'ttl_sec' => 2592000
+            'ttl_sec' => 2592000,
         ];
 
         $response = $this->makeApiRequest($method, $url, $body);
+
         return $response;
     }
 
     /**
      * Deletes the Auth0 user associated with a given ID
-     * 
+     *
      * Docs - https://auth0.com/docs/api/management/v2#!/Users/delete_users_by_id
      *
      * @param String $user_id The Auth0 Id of the user
@@ -258,12 +259,13 @@ class Auth0ApiRequester extends ApiRequester implements RequesterInterface
         $url = config("core.auth0.api.audience") . "users/" . $user_id;
 
         $response = $this->makeApiRequest($method, $url);
+
         return json_decode($response);
     }
 
     /**
      * Get the auth0 roles for a user
-     * 
+     *
      * Docs - https://auth0.com/docs/api/management/v2#!/Users/get_user_roles
      *
      * @param String $user_id The Auth0 Id of the user
@@ -275,12 +277,13 @@ class Auth0ApiRequester extends ApiRequester implements RequesterInterface
         $url = config("core.auth0.api.audience") . "users/" . $user_id . "/roles";
 
         $response = $this->makeApiRequest($method, $url);
+
         return json_decode($response);
     }
 
     /**
      * Fetch login logs from Auth0
-     * 
+     *
      * Docs: https://auth0.com/docs/logs/retrieve-log-events-using-mgmt-api
      *
      * @param Carbon $start A carbon object containing the date and time to start searching from
@@ -312,13 +315,14 @@ class Auth0ApiRequester extends ApiRequester implements RequesterInterface
         $response = $this->makeApiRequest($method, $url);
 
         $logs = json_decode($response);
+
         return $logs;
     }
 
     /**
      * Get an access token for the user by sending the user's username and password directly
      * to Auth0
-     * 
+     *
      * Docs: https://auth0.com/docs/api/authentication#resource-owner-password
      *
      * @param string $username
@@ -346,7 +350,7 @@ class Auth0ApiRequester extends ApiRequester implements RequesterInterface
 
     /**
      * Begins the passwordless authentication process via a code sent to the specified email address
-     * 
+     *
      * Docs: https://auth0.com/docs/connections/passwordless/implement-login/embedded-login/relevant-api-endpoints#post-passwordless-start
      *
      * @param string $email
@@ -361,7 +365,7 @@ class Auth0ApiRequester extends ApiRequester implements RequesterInterface
             'email' => $email,
             'send' => 'code',
             'client_id' => config('core.auth0.app.client_id'),
-            'client_secret' => config('core.auth0.app.client_secret')
+            'client_secret' => config('core.auth0.app.client_secret'),
         ];
         $response = $this->makeApiRequest($method, $url, $body);
         $authorize_data = json_decode($response);
@@ -371,7 +375,7 @@ class Auth0ApiRequester extends ApiRequester implements RequesterInterface
 
     /**
      * Verifies that the specified code is valid for the specified email address
-     * 
+     *
      * Docs: https://auth0.com/docs/connections/passwordless/implement-login/embedded-login/relevant-api-endpoints#post-oauth-token
      *
      * @param string $email
@@ -402,7 +406,7 @@ class Auth0ApiRequester extends ApiRequester implements RequesterInterface
 
     /**
      * Exchanges a valid authorization code for an access token
-     * 
+     *
      * Docs: https://auth0.com/docs/api/authentication#get-token
      *
      * @param string $code
@@ -417,7 +421,7 @@ class Auth0ApiRequester extends ApiRequester implements RequesterInterface
             'client_id' => config('core.auth0.app.client_id'),
             'client_secret' => config('core.auth0.app.client_secret'),
             'code' => $code,
-            'redirect_uri' => $redirect_uri
+            'redirect_uri' => $redirect_uri,
         ];
         $response = $this->makeApiRequest($method, $url, $body);
 
@@ -428,7 +432,7 @@ class Auth0ApiRequester extends ApiRequester implements RequesterInterface
 
     /**
      * Links user accounts together to form a primary and secondary relationship.
-     * 
+     *
      * Docs: https://auth0.com/docs/users/user-account-linking/link-user-accounts
      *
      * @param string $primary_sub
@@ -444,10 +448,11 @@ class Auth0ApiRequester extends ApiRequester implements RequesterInterface
 
         $body = [
             "provider" => $secondary_provider,
-            "user_id" => $secondary_id
+            "user_id" => $secondary_id,
         ];
         $response = $this->makeApiRequest($method, $url, $body);
         $authorize_data = json_decode($response);
+
         return $authorize_data;
     }
 }

@@ -12,7 +12,6 @@ use Salt\Core\Models\User;
 use Salt\Core\Requesters\Auth0ApiRequester;
 
 class CustomUserRepository extends Auth0UserRepository
-
 {
     /**
      * Get an existing user or create a new one
@@ -25,8 +24,9 @@ class CustomUserRepository extends Auth0UserRepository
     {
         $user = User::firstOrCreate(['email' => $profile['email']], [
             'sub' => $profile['sub'] ?? '',
-            'name' => $profile['name'] ?? ''
+            'name' => $profile['name'] ?? '',
         ]);
+
         return $user;
     }
 
@@ -42,7 +42,7 @@ class CustomUserRepository extends Auth0UserRepository
         // Update or create user
         $user = User::updateOrCreate(
             [
-                'email' => $data['email']
+                'email' => $data['email'],
             ],
             [
                 'name' => $data['first_name'] . " " . $data['last_name'],
@@ -50,10 +50,10 @@ class CustomUserRepository extends Auth0UserRepository
         );
 
         // Check for auth0 user
-        $user_data = (new Auth0ApiRequester)->searchAuth0UserByEmail($user->email);
+        $user_data = (new Auth0ApiRequester())->searchAuth0UserByEmail($user->email);
         $password = isset($data['password']) ? $data['password'] : null;
         if (empty($user_data)) {
-            $auth0_user = (new Auth0ApiRequester)->createAuth0User($user->email, $user->name, $password);
+            $auth0_user = (new Auth0ApiRequester())->createAuth0User($user->email, $user->name, $password);
             $user->sub = $auth0_user->user_id;
             $user->save();
         } else {
@@ -68,7 +68,7 @@ class CustomUserRepository extends Auth0UserRepository
 
             // The user has now set another password
             if ($password) {
-                (new Auth0ApiRequester)->changePassword($user_data[0]->user_id, $password);
+                (new Auth0ApiRequester())->changePassword($user_data[0]->user_id, $password);
             }
         }
 
@@ -85,6 +85,7 @@ class CustomUserRepository extends Auth0UserRepository
     public function getUserByDecodedJWT(array $decodedJwt): Authenticatable
     {
         $user = $this->upsertUser((array) $decodedJwt);
+
         return new Auth0JWTUser($user->getAttributes());
     }
 
@@ -112,6 +113,7 @@ class CustomUserRepository extends Auth0UserRepository
     public function getUserByUserInfo(array $userinfo): Authenticatable
     {
         $user = $this->upsertUser($userinfo['profile']);
+
         return new Auth0User($user->getAttributes(), $userinfo['accessToken']);
     }
 }

@@ -17,7 +17,7 @@ class ApiRequester implements RequesterInterface
         $headers = [
             'Accept' => 'application/json',
             'Content-Type' => 'application/json',
-            'Authorization' => "Bearer " . $this->token
+            'Authorization' => "Bearer " . $this->token,
         ];
 
         $response = Http::withHeaders($headers)->$method($url, $body);
@@ -29,11 +29,10 @@ class ApiRequester implements RequesterInterface
         return $response->body();
     }
 
-
     public function getAccessToken(): ?string
     {
         $curl = curl_init();
-        curl_setopt_array($curl, array(
+        curl_setopt_array($curl, [
             CURLOPT_URL => "https://" . config('core.auth0.api.domain') . "/oauth/token",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
@@ -47,10 +46,10 @@ class ApiRequester implements RequesterInterface
                 . config('core.auth0.api.client_secret')
                 . "&audience="
                 . config('core.auth0.api.audience'),
-            CURLOPT_HTTPHEADER => array(
-                "content-type: application/x-www-form-urlencoded"
-            ),
-        ));
+            CURLOPT_HTTPHEADER => [
+                "content-type: application/x-www-form-urlencoded",
+            ],
+        ]);
 
         $response = curl_exec($curl);
         $err = curl_error($curl);
@@ -65,7 +64,6 @@ class ApiRequester implements RequesterInterface
 
         return isset($response->access_token) ? $response->access_token : null;
     }
-
 
     public function getErrorMessage(\Illuminate\Http\Client\Response $response): string
     {

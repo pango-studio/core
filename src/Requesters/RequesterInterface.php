@@ -10,7 +10,7 @@ interface RequesterInterface
      * Makes an API request to the given URL with the given method
      *
      * @param String $method, GET, PUT, POST, PATCH, DELETE
-     * @param String $url 
+     * @param String $url
      * @param array $body
      * @return string
      */
