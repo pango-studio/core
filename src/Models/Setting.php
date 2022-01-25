@@ -7,11 +7,11 @@ use Illuminate\Support\Collection;
 
 /**
  * Salt\Core\Models\Setting
- * 
+ *
  * @property string $name
  * @property string $value
  * @property string $type: string, boolean, integer
- * 
+ *
  */
 class Setting extends Model
 {

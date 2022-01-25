@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Salt\Core\Models\Role
- * 
+ *
  * @property string $name
  * @property string $label
  */

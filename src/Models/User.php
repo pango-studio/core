@@ -8,7 +8,7 @@ use Salt\Core\Traits\HasRoles;
 
 /**
  * Salt\Core\Models\User
- * 
+ *
  * @property string $name
  * @property string $email
  * @property string $sub

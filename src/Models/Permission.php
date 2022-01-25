@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Salt\Core\Models\Permission
- * 
+ *
  * @property string $name
  */
 class Permission extends Model
