@@ -25,7 +25,7 @@ it(' creates a new PermissionOptions class', function () {
     // Assert a new file is created
     assertTrue(File::exists($optionsClass));
 
-    assertEquals(file_get_contents(__DIR__ . "/../stubs/options/$className.php.stub"), file_get_contents($optionsClass));
+    assertEquals(file_get_contents(__DIR__ . "/../../stubs/options/$className.php.stub"), file_get_contents($optionsClass));
 });
 
 it(' creates a new RoleOptions class', function () {
@@ -46,5 +46,5 @@ it(' creates a new RoleOptions class', function () {
     // Assert a new file is created
     assertTrue(File::exists($optionsClass));
 
-    assertEquals(file_get_contents(__DIR__ . "/../stubs/options/$className.php.stub"), file_get_contents($optionsClass));
+    assertEquals(file_get_contents(__DIR__ . "/../../stubs/options/$className.php.stub"), file_get_contents($optionsClass));
 });
