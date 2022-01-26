@@ -33,7 +33,6 @@ class CoreServiceProvider extends PackageServiceProvider
         $package
             ->name('core')
             ->hasConfigFile()
-            ->hasRoute('web')
             ->hasMigrations(
                 [
                     'create_users_table',
