@@ -1,1 +1,1 @@
-# Guide
+# Salt Core Package Configuration
