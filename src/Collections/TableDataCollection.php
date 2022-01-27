@@ -7,7 +7,7 @@ use Salt\Core\Traits\PaginateCollectionTrait;
 use Salt\Core\Traits\SearchCollectionTrait;
 use Salt\Core\Traits\SortCollectionTrait;
 
-class CoreCollection extends Collection
+class TableDataCollection extends Collection
 {
     use PaginateCollectionTrait;
     use SearchCollectionTrait;

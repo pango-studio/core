@@ -7,14 +7,14 @@ use Illuminate\Pagination\LengthAwarePaginator;
 trait PaginateCollectionTrait
 {
     /**
-     * Paginate the collection
+     * Paginate the collection data
      *
      * @param int $total Total number of items
      * @param int $page Current page number
      * @param string $pageName Current page name
      * @return LengthAwarePaginator
      */
-    public function paginateCollection(int $total = null, int $page = null, string $pageName = 'page'): LengthAwarePaginator
+    public function paginate(int $total = null, int $page = null, string $pageName = 'page'): LengthAwarePaginator
     {
         $page = $page ?: LengthAwarePaginator::resolveCurrentPage($pageName);
         $per_page = $this->determineItemsPerPage($this->count());

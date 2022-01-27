@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 trait SearchCollectionTrait
 {
     /**
-     * Search the collection for the specified term within the specified search fields
+     * Search through the data for the specified term within the specified search fields
      *
      * Fuse docs - https://github.com/loilo/Fuse#usage
      *
@@ -19,7 +19,7 @@ trait SearchCollectionTrait
      * A threshold of 0.0 requires a perfect match (of both letters and location), a threshold of 1.0 would match anything.
      * @return static
      */
-    public function searchCollection(Request $request, array $search_fields = [], float $threshold = 0.6): Collection
+    public function searchData(Request $request, array $search_fields = [], float $threshold = 0.6): Collection
     {
         $term = strtolower($request->input('query'));
         if ($term) {

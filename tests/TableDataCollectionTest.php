@@ -6,7 +6,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use function PHPUnit\Framework\assertEquals;
 
 use function PHPUnit\Framework\assertTrue;
-use Salt\Core\Collections\CoreCollection;
+use Salt\Core\Collections\TableDataCollection;
 use Salt\Core\Models\User;
 
 beforeEach(function () {
@@ -15,14 +15,14 @@ beforeEach(function () {
         ->create();
 });
 
-it('can be paginated', function () {
-    $collection = (new CoreCollection($this->items))
-        ->paginateCollection();
+it('can paginate the data', function () {
+    $collection = (new TableDataCollection($this->items))
+        ->paginate();
 
     assertTrue($collection instanceof LengthAwarePaginator);
 });
 
-it('can be searched', function () {
+it('can search through the data', function () {
     $random_item = $this->items->random()->name;
 
     $request = new FormRequest([
@@ -30,8 +30,8 @@ it('can be searched', function () {
         'query' => "$random_item 1",
     ]);
 
-    $search_collection = (new CoreCollection($this->items))
-        ->searchCollection($request, ['name']);
+    $search_collection = (new TableDataCollection($this->items))
+        ->searchData($request, ['name']);
 
     assertEquals($random_item, $search_collection->first()['name']);
 });
@@ -44,8 +44,8 @@ it('can be sorted', function () {
         'direction' => 'asc',
     ]);
 
-    $sorted_collection = (new CoreCollection($this->items))
-        ->sortCollection($request);
+    $sorted_collection = (new TableDataCollection($this->items))
+        ->sortTable($request);
 
     assertEquals($sorted_items->first()->name, $sorted_collection->first()['name']);
 });
