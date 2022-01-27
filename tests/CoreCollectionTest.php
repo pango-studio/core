@@ -1,13 +1,13 @@
 <?php
 
-use Salt\Core\Models\User;
-
-use Salt\Core\Collections\CoreCollection;
-use function PHPUnit\Framework\assertTrue;
-
 use Illuminate\Foundation\Http\FormRequest;
-use function PHPUnit\Framework\assertEquals;
+
 use Illuminate\Pagination\LengthAwarePaginator;
+use function PHPUnit\Framework\assertEquals;
+
+use function PHPUnit\Framework\assertTrue;
+use Salt\Core\Collections\CoreCollection;
+use Salt\Core\Models\User;
 
 beforeEach(function () {
     $this->items = User::factory()
@@ -27,7 +27,7 @@ it('can be searched', function () {
 
     $request = new FormRequest([
         // Test fuzzy search
-        'query' => "$random_item 1"
+        'query' => "$random_item 1",
     ]);
 
     $search_collection = (new CoreCollection($this->items))
@@ -41,7 +41,7 @@ it('can be sorted', function () {
 
     $request = new FormRequest([
         'column' => 'name',
-        'direction' => 'asc'
+        'direction' => 'asc',
     ]);
 
     $sorted_collection = (new CoreCollection($this->items))

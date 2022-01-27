@@ -10,12 +10,12 @@ trait SearchCollectionTrait
 {
     /**
      * Search the collection for the specified term within the specified search fields
-     * 
+     *
      * Fuse docs - https://github.com/loilo/Fuse#usage
      *
      * @param Request $request
      * @param array $search_fields
-     * @param float $threshold At what point does the match algorithm give up. 
+     * @param float $threshold At what point does the match algorithm give up.
      * A threshold of 0.0 requires a perfect match (of both letters and location), a threshold of 1.0 would match anything.
      * @return static
      */
@@ -26,7 +26,7 @@ trait SearchCollectionTrait
             $options = [
                 'keys' => $search_fields,
                 'includeScore' => true,
-                'threshold' => $threshold
+                'threshold' => $threshold,
             ];
             // Hacky method to turn array of objects into array of arrays
             $values = json_decode(json_encode($this->values()->all()), true);

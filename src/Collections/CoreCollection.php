@@ -9,5 +9,7 @@ use Salt\Core\Traits\SortCollectionTrait;
 
 class CoreCollection extends Collection
 {
-    use PaginateCollectionTrait, SearchCollectionTrait, SortCollectionTrait;
+    use PaginateCollectionTrait;
+    use SearchCollectionTrait;
+    use SortCollectionTrait;
 }

@@ -16,7 +16,7 @@ trait SortCollectionTrait
     public function sortCollection(Request $request): Collection
     {
         $sort_column = $request->input('column') ?? 'id';
-        $sort_direction =  $request->input('direction') ?? 'desc';
+        $sort_direction = $request->input('direction') ?? 'desc';
 
         if ($sort_column) {
             switch ($sort_direction) {

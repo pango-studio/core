@@ -2,7 +2,6 @@
 
 namespace Salt\Core\Traits;
 
-use App\Helpers\PaginationHelper;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 trait PaginateCollectionTrait
@@ -10,8 +9,8 @@ trait PaginateCollectionTrait
     /**
      * Paginate the collection
      *
-     * @param integer $total Total number of items
-     * @param integer $page Current page number
+     * @param int $total Total number of items
+     * @param int $page Current page number
      * @param string $pageName Current page name
      * @return LengthAwarePaginator
      */
@@ -35,8 +34,8 @@ trait PaginateCollectionTrait
     /**
      * Determine the number of items to show per paginated table page
      *
-     * @param integer $count the total number of items
-     * @return integer 
+     * @param int $count the total number of items
+     * @return int
      */
     private function determineItemsPerPage(int $count): int
     {
