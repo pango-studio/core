@@ -22,6 +22,7 @@
         "guzzlehttp/psr7": "^1.8.2",
         "illuminate/contracts": "^8.73",
         "loilo/fuse": "^6.5",
+        "mailchimp/transactional": "^1.0",
         "spatie/laravel-package-tools": "^1.9.2"
     },
     "require-dev": {

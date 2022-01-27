@@ -17,6 +17,12 @@ return [
             'domain' => env('AUTH0_MACHINE_DOMAIN')
         ),
     ),
+    'mail' => array(
+        'mandrill' => array(
+            'key' => env('MANDRILL_KEY', ''),
+            'template' => env('MANDRILL_TEMPLATE', '')
+        )
+    ),
     'permissions' => PermissionOptions::$permissionsArray,
     'roles' => RoleOptions::$rolesArray,
     'url' => env('APP_URL', '')
