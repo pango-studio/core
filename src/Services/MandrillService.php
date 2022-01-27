@@ -8,9 +8,9 @@ class MandrillService
 {
     /**
      * Send a template mailer via the Mandrill service
-     * 
+     *
      * Docs - https://mandrillapp.com/api/docs/messages.JSON.html#method=send-template
-     * 
+     *
      * @param String $recipient_email the receipient email address
      * @param String $html_content The actual HTML email content
      * @param String $subject The email subject
@@ -29,24 +29,24 @@ class MandrillService
         $mandrill->setApiKey($key);
 
         $template_name = config('core.mail.mandrill.template');
-        $template_content = array(
-            array(
+        $template_content = [
+            [
                 'name' => 'main',
-                'content' => $html_content
-            ),
-        );
+                'content' => $html_content,
+            ],
+        ];
 
-        $message = array(
+        $message = [
             'html' => $html_content,
             'subject' => $subject,
             'from_email' => $from_email,
             'from_name' => $from_name,
-            'to' => array(
-                array(
-                    'email' => $recipient_email
-                )
-            ),
-            'headers' => array('Reply-To' => $reply_to_email),
+            'to' => [
+                [
+                    'email' => $recipient_email,
+                ],
+            ],
+            'headers' => ['Reply-To' => $reply_to_email],
             'important' => false,
             'track_opens' => true,
             'track_clicks' => true,
@@ -63,7 +63,7 @@ class MandrillService
             'merge' => true,
             'merge_language' => 'mailchimp',
             'global_merge_vars' => $merge_vars,
-        );
+        ];
 
         $async = false;
 
@@ -72,10 +72,11 @@ class MandrillService
             'template_name' => $template_name,
             'template_content' => $template_content,
             'message' => $message,
-            'async' => $async
+            'async' => $async,
         ];
 
         $result = $mandrill->messages->sendTemplate($body);
+
         return $result;
     }
 }
