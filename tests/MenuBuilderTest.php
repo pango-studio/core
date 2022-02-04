@@ -1,16 +1,16 @@
 <?php
 
+use function PHPUnit\Framework\assertArrayHasKey;
+use function PHPUnit\Framework\assertEquals;
+
+use function PHPUnit\Framework\assertInstanceOf;
+use function PHPUnit\Framework\assertIsArray;
+
+use function PHPUnit\Framework\assertNotEquals;
+use Salt\Core\Models\MenuBuilder;
+use Salt\Core\Models\Permission;
 use Salt\Core\Models\Role;
 use Salt\Core\Models\User;
-
-use Salt\Core\Models\Permission;
-use Salt\Core\Models\MenuBuilder;
-
-use function PHPUnit\Framework\assertEquals;
-use function PHPUnit\Framework\assertIsArray;
-use function PHPUnit\Framework\assertInstanceOf;
-use function PHPUnit\Framework\assertArrayHasKey;
-use function PHPUnit\Framework\assertNotEquals;
 
 it('can be initialized with an empty array and the current user', function () {
     $menu = MenuBuilder::new();
@@ -25,7 +25,7 @@ it('can return the array of menu items', function () {
 
     assertIsArray($menu);
 
-    $array =  [
+    $array = [
         "section" => [
             [
                 "text" => "Assessments",
@@ -38,8 +38,8 @@ it('can return the array of menu items', function () {
                 "icon" => "IconQuestion",
                 "route" => "admin.questions",
                 "viewBox" => "0 0 32 32",
-            ]
-        ]
+            ],
+        ],
     ];
 
     // Menu pre-filled with items
@@ -54,7 +54,7 @@ it('can add a new section to the menu', function () {
         ->addSection("title")
         ->build();
 
-    assertEquals(['title' => array()], $menu);
+    assertEquals(['title' => []], $menu);
 });
 
 it('can add a item to a section', function () {
@@ -64,7 +64,7 @@ it('can add a item to a section', function () {
         'text' => "Assessments",
         'icon' => "IconAssessment",
         'route' => "admin.assessments",
-        'viewBox' => "0 0 20 20"
+        'viewBox' => "0 0 20 20",
     ];
 
     $menu = MenuBuilder::new()
@@ -78,28 +78,28 @@ it('can add a item to a section', function () {
 
 
 it('can add multiple items to a section at once', function () {
-    $assessmentItem =  [
+    $assessmentItem = [
         'text' => "Assessments",
         'icon' => "IconAssessment",
         'route' => "admin.assessments",
-        'viewBox' => "0 0 20 20"
+        'viewBox' => "0 0 20 20",
     ];
 
-    $questionItem =  [
+    $questionItem = [
         'text' => "Questions",
         'icon' => "IconQuestion",
         'route' => "admin.questions",
-        'viewBox' => "0 0 32 32"
+        'viewBox' => "0 0 32 32",
     ];
 
     $menu = MenuBuilder::new()
         ->addSection(
             "section",
             [
-                $assessmentItem
+                $assessmentItem,
             ],
             [
-                $questionItem
+                $questionItem,
             ]
         )
         ->build();
@@ -122,14 +122,14 @@ it("can hide a menu item if the current user doesn't have permission to view it"
         'text' => "Assessments",
         'icon' => "IconAssessment",
         'route' => "admin.assessments",
-        'viewBox' => "0 0 20 20"
+        'viewBox' => "0 0 20 20",
     ];
 
     $userItem = [
         'text' => "Users",
         'icon' => "IconUser",
         'route' => "admin.users",
-        'viewBox' => "0 0 20 20"
+        'viewBox' => "0 0 20 20",
     ];
 
     actingAs($user);
@@ -149,10 +149,10 @@ it("can hide a menu item if the current user doesn't have permission to view it"
         ->addSection(
             'section',
             [
-                $assessmentItem, $assessmentPermission
+                $assessmentItem, $assessmentPermission,
             ],
             [
-                $userItem, $userPermission
+                $userItem, $userPermission,
             ]
         )
         ->build();

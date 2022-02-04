@@ -16,7 +16,7 @@ class MenuBuilder
     }
 
     /**
-     * Initializes a new menu. 
+     * Initializes a new menu.
      * If an array of menu items is passed, it prefills the menu with those items
      *
      * @return static
@@ -32,7 +32,7 @@ class MenuBuilder
 
     /**
      * Adds a new section to the menu with the given name as the index
-     * 
+     *
      * If menu items are also passed, it adds each of them to the section,
      * alternatively the section will be an empty array
      *
@@ -55,9 +55,9 @@ class MenuBuilder
 
     /**
      * Adds an item to to section with the given section name,
-     * 
+     *
      * If the current user does not have permission to view the menu item,
-     * it will not be included 
+     * it will not be included
      *
      * @param string $sectionName
      * @param array $items
