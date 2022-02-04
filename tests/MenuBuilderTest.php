@@ -148,10 +148,10 @@ it("can hide a menu item if the current user doesn't have permission to view it"
         ->addSection(
             'section',
             [
-                $assessmentItem, $assessmentPermission->name
+                $assessmentItem, $assessmentPermission->name,
             ],
             [
-                $userItem, $userPermission->name
+                $userItem, $userPermission->name,
             ]
         )
         ->build();

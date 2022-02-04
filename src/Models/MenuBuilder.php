@@ -64,7 +64,7 @@ class MenuBuilder
      * @param Permission|null $permission
      * @return static
      */
-    public function addItem(string $sectionName, array $item, string $permission  = null): static
+    public function addItem(string $sectionName, array $item, string $permission = null): static
     {
         if ($permission) {
             if ($this->user->hasPermission($permission)) {
