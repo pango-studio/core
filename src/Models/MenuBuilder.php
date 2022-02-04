@@ -60,18 +60,18 @@ class MenuBuilder
      * it will not be included 
      *
      * @param string $sectionName
-     * @param array $items
+     * @param array $item
      * @param Permission|null $permission
      * @return static
      */
-    public function addItem(string $sectionName, array $items, Permission $permission = null): static
+    public function addItem(string $sectionName, array $item, string $permission  = null): static
     {
         if ($permission) {
-            if ($this->user->hasPermission($permission->name)) {
-                $this->menu[$sectionName][] = $items;
+            if ($this->user->hasPermission($permission)) {
+                $this->menu[$sectionName][] = $item;
             }
         } else {
-            $this->menu[$sectionName][] = $items;
+            $this->menu[$sectionName][] = $item;
         }
 
         return $this;

@@ -68,7 +68,6 @@ it('can add a item to a section', function () {
     ];
 
     $menu = MenuBuilder::new()
-        ->addSection($sectionName)
         ->addItem($sectionName, $item)
         ->build();
 
@@ -136,8 +135,8 @@ it("can hide a menu item if the current user doesn't have permission to view it"
 
     $menu = MenuBuilder::new()
         ->addSection('section')
-        ->addItem('section', $assessmentItem, $assessmentPermission)
-        ->addItem('section', $userItem, $userPermission)
+        ->addItem('section', $assessmentItem, $assessmentPermission->name)
+        ->addItem('section', $userItem, $userPermission->name)
         ->build();
 
     assertNotEquals($menu, ['section' => [$assessmentItem, $userItem]]);
@@ -149,10 +148,10 @@ it("can hide a menu item if the current user doesn't have permission to view it"
         ->addSection(
             'section',
             [
-                $assessmentItem, $assessmentPermission
+                $assessmentItem, $assessmentPermission->name
             ],
             [
-                $userItem, $userPermission
+                $userItem, $userPermission->name
             ]
         )
         ->build();
