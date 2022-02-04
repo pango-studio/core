@@ -75,6 +75,11 @@ class MandrillService
             'async' => $async,
         ];
 
+        /**
+         * PHPStan type error is coming from vendor package
+         * 
+         * @phpstan-ignore-next-line    
+         */
         $result = $mandrill->messages->sendTemplate($body);
 
         return $result;

@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\Auth;
 class MenuBuilder
 {
     protected array $menu = [];
+    protected User|null $user;
 
-    public function __construct(...$items)
+    final public function __construct(...$items)
     {
         $this->menu = $items;
 
@@ -61,7 +62,7 @@ class MenuBuilder
      *
      * @param string $sectionName
      * @param array $item
-     * @param Permission|null $permission
+     * @param string|null $permission
      * @return static
      */
     public function addItem(string $sectionName, array $item, string $permission = null): static
