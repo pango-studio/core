@@ -77,8 +77,8 @@ class MandrillService
 
         /**
          * PHPStan type error is coming from vendor package
-         * 
-         * @phpstan-ignore-next-line    
+         *
+         * @phpstan-ignore-next-line
          */
         $result = $mandrill->messages->sendTemplate($body);
 
