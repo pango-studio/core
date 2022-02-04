@@ -1,8 +1,8 @@
 <?php
 
-use Salt\Core\Tests\TestCase;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Salt\Core\Tests\TestCase;
 
 uses(TestCase::class, RefreshDatabase::class)->in('');
 
