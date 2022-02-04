@@ -19,10 +19,34 @@ it('can be initialized with an empty array and the current user', function () {
 });
 
 it('can return the array of menu items', function () {
+    // Empty menu
     $menu = MenuBuilder::new()
         ->build();
 
     assertIsArray($menu);
+
+    $array =  [
+        "section" => [
+            [
+                "text" => "Assessments",
+                "icon" => "IconAssessment",
+                "route" => "admin.assessments",
+                "viewBox" => "0 0 20 20",
+            ],
+            [
+                "text" => "Questions",
+                "icon" => "IconQuestion",
+                "route" => "admin.questions",
+                "viewBox" => "0 0 32 32",
+            ]
+        ]
+    ];
+
+    // Menu pre-filled with items
+    $menu = MenuBuilder::new($array)
+        ->build();
+
+    assertEquals([$array], $menu);
 });
 
 it('can add a new section to the menu', function () {
@@ -33,10 +57,10 @@ it('can add a new section to the menu', function () {
     assertEquals(['title' => array()], $menu);
 });
 
-it('can add a link to a section', function () {
+it('can add a item to a section', function () {
     $sectionName = "content";
 
-    $link = [
+    $item = [
         'text' => "Assessments",
         'icon' => "IconAssessment",
         'route' => "admin.assessments",
@@ -45,23 +69,23 @@ it('can add a link to a section', function () {
 
     $menu = MenuBuilder::new()
         ->addSection($sectionName)
-        ->addLink($sectionName, $link)
+        ->addItem($sectionName, $item)
         ->build();
 
     assertArrayHasKey($sectionName, $menu);
-    assertEquals($link, $menu[$sectionName][0]);
+    assertEquals($item, $menu[$sectionName][0]);
 });
 
 
-it('can add multiple links to a section at once', function () {
-    $assessmentLink =  [
+it('can add multiple items to a section at once', function () {
+    $assessmentItem =  [
         'text' => "Assessments",
         'icon' => "IconAssessment",
         'route' => "admin.assessments",
         'viewBox' => "0 0 20 20"
     ];
 
-    $questionLink =  [
+    $questionItem =  [
         'text' => "Questions",
         'icon' => "IconQuestion",
         'route' => "admin.questions",
@@ -72,16 +96,16 @@ it('can add multiple links to a section at once', function () {
         ->addSection(
             "section",
             [
-                $assessmentLink
+                $assessmentItem
             ],
             [
-                $questionLink
+                $questionItem
             ]
         )
         ->build();
 
-    assertEquals($assessmentLink, $menu['section'][0]);
-    assertEquals($questionLink, $menu['section'][1]);
+    assertEquals($assessmentItem, $menu['section'][0]);
+    assertEquals($questionItem, $menu['section'][1]);
 });
 
 it("can hide a menu item if the current user doesn't have permission to view it", function () {
@@ -94,14 +118,14 @@ it("can hide a menu item if the current user doesn't have permission to view it"
     $role->permissions()->attach($assessmentPermission);
     $user->roles()->syncWithoutDetaching($role);
 
-    $assessmentLink = [
+    $assessmentItem = [
         'text' => "Assessments",
         'icon' => "IconAssessment",
         'route' => "admin.assessments",
         'viewBox' => "0 0 20 20"
     ];
 
-    $userLink = [
+    $userItem = [
         'text' => "Users",
         'icon' => "IconUser",
         'route' => "admin.users",
@@ -112,12 +136,12 @@ it("can hide a menu item if the current user doesn't have permission to view it"
 
     $menu = MenuBuilder::new()
         ->addSection('section')
-        ->addLink('section', $assessmentLink, $assessmentPermission)
-        ->addLink('section', $userLink, $userPermission)
+        ->addItem('section', $assessmentItem, $assessmentPermission)
+        ->addItem('section', $userItem, $userPermission)
         ->build();
 
-    assertNotEquals($menu, ['section' => [$assessmentLink, $userLink]]);
-    assertEquals($menu, ['section' => [$assessmentLink]]);
+    assertNotEquals($menu, ['section' => [$assessmentItem, $userItem]]);
+    assertEquals($menu, ['section' => [$assessmentItem]]);
 
 
     // Alternative syntax
@@ -125,14 +149,14 @@ it("can hide a menu item if the current user doesn't have permission to view it"
         ->addSection(
             'section',
             [
-                $assessmentLink, $assessmentPermission
+                $assessmentItem, $assessmentPermission
             ],
             [
-                $userLink, $userPermission
+                $userItem, $userPermission
             ]
         )
         ->build();
 
-    assertNotEquals($menu, ['section' => [$assessmentLink, $userLink]]);
-    assertEquals($menu, ['section' => [$assessmentLink]]);
+    assertNotEquals($menu, ['section' => [$assessmentItem, $userItem]]);
+    assertEquals($menu, ['section' => [$assessmentItem]]);
 });

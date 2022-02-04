@@ -2,38 +2,69 @@
 
 namespace Salt\Core\Models;
 
-use Exception;
 use Illuminate\Support\Facades\Auth;
 
 class MenuBuilder
 {
     protected array $menu = [];
 
-    public function __construct()
+    public function __construct(...$items)
     {
+        $this->menu = $items;
+
         $this->user = Auth::user() ? User::find(Auth::user()->id) : null;
     }
 
-
-    public static function new(): static
+    /**
+     * Initializes a new menu. 
+     * If an array of menu items is passed, it prefills the menu with those items
+     *
+     * @return static
+     */
+    public static function new(array $items = null): static
     {
-        return new static();
+        if ($items) {
+            return new static($items);
+        } else {
+            return new static();
+        }
     }
 
+    /**
+     * Adds a new section to the menu with the given name as the index
+     * 
+     * If menu items are also passed, it adds each of them to the section,
+     * alternatively the section will be an empty array
+     *
+     * @param string $name
+     * @param array ...$items
+     * @return static
+     */
     public function addSection(string $name,  array ...$items): static
     {
         $this->menu[$name] = [];
 
         if ($items) {
             foreach ($items as $item) {
-                $this->addLink($name, ...$item);
+                $this->addItem($name, ...$item);
             }
         };
 
         return $this;
     }
 
-    public function addLink(string $sectionName, array $items, Permission $permission = null): static
+    /**
+     * Adds an item to to section with the given section name,
+     * 
+     * If the current user does not have permission to view the menu item,
+     * it will not be included 
+     *
+     * @param string $sectionName
+     * @param array $items
+     * @param Permission|null $permission
+     * @return static
+     */
+    public function addItem(string $sectionName, array $items, Permission $permission = null): static
     {
         if ($permission) {
             if ($this->user->hasPermission($permission->name)) {
@@ -46,7 +77,12 @@ class MenuBuilder
         return $this;
     }
 
-    public function build()
+    /**
+     * Returns the full menu
+     *
+     * @return array
+     */
+    public function build(): array
     {
         return $this->menu;
     }
