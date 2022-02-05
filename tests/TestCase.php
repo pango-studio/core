@@ -2,10 +2,9 @@
 
 namespace Salt\Core\Tests;
 
-use Salt\Core\Models\User;
-use Salt\Core\CoreServiceProvider;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Orchestra\Testbench\TestCase as Orchestra;
+use Salt\Core\CoreServiceProvider;
 
 class TestCase extends Orchestra
 {
