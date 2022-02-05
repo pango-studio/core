@@ -28,15 +28,11 @@ class TestCase extends Orchestra
     {
         config()->set('database.default', 'testing');
 
-        // Auth0 API testing variables
-        config()->set('core.auth0.app.client_id', 'YVotV35t67Byfx520GsAxtYD1V2i10aQ');
-        config()->set('core.auth0.app.client_secret', 'IqprMJa-vlNNMkrFpZ44mb2AKmJtThTJPCgB0_eiwOEv5CW8SxUezfsidRC3AtXx');
-        config()->set('core.auth0.app.db_connection', 'Username-Password-Authentication');
+        (env("AUTH0_CLIENT_ID"));
 
-        config()->set('core.auth0.api.audience', 'https://alt-testing.eu.auth0.com/api/v2/');
-        config()->set('core.auth0.api.client_id', 'CNBXTWofY5O3XmQOjvRhR7WoLya7JjF7');
-        config()->set('core.auth0.api.client_secret', 'LHW6qIm9GjYRAMTbFYTG1dxj3P-0BQk166LZfieBTQkEmfJCQ9kKncKnwBKF-KKq');
-        config()->set('core.auth0.api.domain', 'alt-testing.eu.auth0.com');
+        // Auth0 API testing variables
+        config()->set('core.auth0.api.audience', "https://alt-testing.eu.auth0.com/api/v2/");
+        config()->set('core.auth0.api.domain', 'alt-testing-eu-auth0.com');
 
 
         $this->runMigrations();
