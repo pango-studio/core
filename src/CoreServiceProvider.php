@@ -3,7 +3,6 @@
 namespace Salt\Core;
 
 use Illuminate\Routing\Router;
-use Salt\Core\Commands\CoreCommand;
 use Salt\Core\Commands\GenerateOptionsClassCommand;
 use Salt\Core\Middleware\PermissionChecker;
 use Spatie\LaravelPackageTools\Package;
