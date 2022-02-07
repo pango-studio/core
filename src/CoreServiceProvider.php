@@ -42,6 +42,8 @@ class CoreServiceProvider extends PackageServiceProvider
                     'create_role_users_table',
                     'create_settings_table',
                 ]
-            )->hasCommand(CoreCommand::class);
+            )
+            ->hasCommand(GenerateOptionsClassCommand::class)
+            ->hasTranslations();
     }
 }
