@@ -11,7 +11,7 @@ e.g when determining whether a menu item should appear:
     ...
 
     if ($user->hasPermission(Permission::VIEW_INSIGHTS)) {
-        $menu[__("global.place.manage")][] = self::insightsMenu();
+        $menu["Manage"][] = self::insightsMenu();
     }
 ```
 

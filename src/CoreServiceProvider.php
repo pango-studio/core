@@ -3,7 +3,6 @@
 namespace Salt\Core;
 
 use Illuminate\Routing\Router;
-use Salt\Core\Commands\CoreCommand;
 use Salt\Core\Commands\GenerateOptionsClassCommand;
 use Salt\Core\Middleware\PermissionChecker;
 use Spatie\LaravelPackageTools\Package;
@@ -41,6 +40,8 @@ class CoreServiceProvider extends PackageServiceProvider
                     'create_role_users_table',
                     'create_settings_table',
                 ]
-            )->hasCommand(CoreCommand::class);
+            )
+            ->hasCommand(GenerateOptionsClassCommand::class)
+            ->hasTranslations();
     }
 }
