@@ -28,13 +28,6 @@ class TestCase extends Orchestra
     {
         config()->set('database.default', 'testing');
 
-        (env("AUTH0_CLIENT_ID"));
-
-        // Auth0 API testing variables
-        config()->set('core.auth0.api.audience', "https://alt-testing.eu.auth0.com/api/v2/");
-        config()->set('core.auth0.api.domain', 'alt-testing-eu-auth0.com');
-
-
         $this->runMigrations();
     }
 

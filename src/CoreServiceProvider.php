@@ -34,7 +34,6 @@ class CoreServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasMigrations(
                 [
-                    'create_users_table',
                     'create_permissions_table',
                     'create_roles_table',
                     'create_permission_roles_table',
