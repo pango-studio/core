@@ -25,7 +25,7 @@ class MenuBuilder
      * If an array of menu items is passed, it prefills the menu with those items
      *
      * @param MenuItem[]|null $items
-     * 
+     *
      * @return static
      */
     public static function new($items = null): static

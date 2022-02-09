@@ -8,8 +8,8 @@ use function PHPUnit\Framework\assertIsArray;
 
 use function PHPUnit\Framework\assertNotEquals;
 
-use Salt\Core\Models\MenuBuilder;
 use Salt\Core\Data\MenuItem;
+use Salt\Core\Models\MenuBuilder;
 use Salt\Core\Models\Permission;
 use Salt\Core\Models\Role;
 use Salt\Core\Models\User;
