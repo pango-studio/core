@@ -3,12 +3,16 @@
 namespace Salt\Core\Models;
 
 use Illuminate\Support\Facades\Auth;
+use Salt\Core\Data\MenuItem;
 
 class MenuBuilder
 {
     protected array $menu = [];
     protected User|null $user;
 
+    /**
+     * @param MenuItem[]|null $items
+     */
     final public function __construct(...$items)
     {
         $this->menu = $items;
@@ -20,9 +24,11 @@ class MenuBuilder
      * Initializes a new menu.
      * If an array of menu items is passed, it prefills the menu with those items
      *
+     * @param MenuItem[]|null $items
+     * 
      * @return static
      */
-    public static function new(array $items = null): static
+    public static function new($items = null): static
     {
         if ($items) {
             return new static($items);
@@ -38,10 +44,10 @@ class MenuBuilder
      * alternatively the section will be an empty array
      *
      * @param string $name
-     * @param array ...$items
+     * @param MenuItem[] ...$items
      * @return static
      */
-    public function addSection(string $name,  array ...$items): static
+    public function addSection(string $name, ...$items): static
     {
         $this->menu[$name] = [];
 
@@ -61,11 +67,11 @@ class MenuBuilder
      * it will not be included
      *
      * @param string $sectionName
-     * @param array $item
+     * @param MenuItem $item
      * @param string|null $permission
      * @return static
      */
-    public function addItem(string $sectionName, array $item, string $permission = null): static
+    public function addItem(string $sectionName, MenuItem $item, string $permission = null): static
     {
         if ($permission) {
             if ($this->user->hasPermission($permission)) {

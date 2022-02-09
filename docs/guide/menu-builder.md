@@ -6,12 +6,13 @@ will be passed to your frontend for rendering
 ```php
     use Salt\Core\MenuBuilder;
 
-    $userMenuItem = [
-        'text' => "Users",
-        'icon' => "IconUser",
-        'route' => "admin.users",
-        'viewBox' => "0 0 20 20"
-    ];
+    $userMenuItem = new MenuItem(
+        "Edit user",
+        "admin.users.edit",
+        ["admin.users"],
+        "IconUser",
+        "0 0 20 20"
+    );
 
     $menu = MenuBuilder::new()
         ->addItem("Admin", $userMenuItem)
@@ -41,11 +42,59 @@ where you have an existing menu already and want to add onto it in some other lo
 
 ## Adding items to the menu
 
-`public function addItem(string $sectionName, array $item, string $permission = null): static`
+`public function addItem(string $sectionName, MenuItem $item, string $permission = null): static`
 
 To add an item to the menu, you can use the `addItem()` method. This method takes a string `sectionName`,
 which will determine what section in the menu the item is added to, If no section is found with that name,
-it will add a new section. It then takes an array `$item` which will be added to the menu.
+it will add a new section. It then takes an `$item` which is of the custom data type `MenuItem` which will be added to the menu.
+
+### Menu Item data type
+
+Here's the constructor for the `MenuItem` data type:
+
+```php
+ /**
+ * @param string $label The label of the menu item
+ * @param string $route The name of the Laravel route which the menu item links to
+ * @param array|null $routeGroup The group of routes which this menu item belongs to. Used to trigger active link classes
+ * @param string|null $icon The name of the icon to be shown next to the label
+ * @param string $viewBox The viewbox of the icon component
+ */
+public function __construct(
+    public string $label,
+    public string $route,
+    public array|null $routeGroup,
+    public string|null $icon,
+    public string $viewBox = "0 0 32 32",
+) {
+    }
+```
+
+You can create a new menu item either by using `new MenuItem()` like this:
+
+```php
+    $item = new MenuItem(
+        "Edit user",
+        "admin.users.edit",
+        ["admin.users"],
+        "IconUser",
+        "0 0 20 20"
+    );
+```
+
+or in an array format:
+
+```php
+    $item = MenuItem::from([
+        "label" => "Edit user",
+        "route" => "admin.users.edit",
+        "routeGroup" => ["admin.users"],
+        "icon" => "IconUser",
+        "viewBox" => "0 0 20 20"
+    ]);
+```
+
+This is done using the [spatie/laravel-data](https://github.com/spatie/laravel-data) package so you can view those docs for more info.
 
 ### Permissions
 
