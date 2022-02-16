@@ -17,7 +17,6 @@
     ],
     "require": {
         "php": "^8.0",
-        "illuminate/contracts": "^8.73",
         "loilo/fuse": "^6.5",
         "mailchimp/transactional": "^1.0",
         "spatie/laravel-data": "^1.4",
