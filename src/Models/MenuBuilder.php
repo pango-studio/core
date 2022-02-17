@@ -78,7 +78,6 @@ class MenuBuilder
         return $this->menu;
     }
 
-
     /**
      * Add the item to the menu
      */

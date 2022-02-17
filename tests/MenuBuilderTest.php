@@ -55,7 +55,6 @@ it('can return the array of menu items', function () {
 });
 
 it('can add an item to the menu', function () {
-
     $item = new MenuItem("Assessments", "admin.assessments", null, "IconAssessment");
     $menu = MenuBuilder::new()
         ->addItem($item)
