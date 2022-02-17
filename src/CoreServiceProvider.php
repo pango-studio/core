@@ -36,8 +36,8 @@ class CoreServiceProvider extends PackageServiceProvider
                 [
                     'create_permissions_table',
                     'create_roles_table',
-                    'create_permission_roles_table',
-                    'create_role_users_table',
+                    'create_permission_role_table',
+                    'create_role_user_table',
                     'create_settings_table',
                 ]
             )

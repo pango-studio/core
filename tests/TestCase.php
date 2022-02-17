@@ -39,10 +39,10 @@ class TestCase extends Orchestra
         $rolesTable = include __DIR__ . '/../database/migrations/create_roles_table.php.stub';
         $rolesTable->up();
 
-        $permissionRolesTable = include  __DIR__ . '/../database/migrations/create_permission_roles_table.php.stub';
+        $permissionRolesTable = include  __DIR__ . '/../database/migrations/create_permission_role_table.php.stub';
         $permissionRolesTable->up();
 
-        $roleUsersTable = include  __DIR__ . '/../database/migrations/create_role_users_table.php.stub';
+        $roleUsersTable = include  __DIR__ . '/../database/migrations/create_role_user_table.php.stub';
         $roleUsersTable->up();
 
         $settingsTable = include  __DIR__ . '/../database/migrations/create_settings_table.php.stub';
