@@ -68,7 +68,7 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        foreach (Permission::permissionOptions() as $permission) {
+        foreach (Permission::options() as $permission) {
             Permission::updateOrCreate(['name' => $permission]);
         }
     }
@@ -93,7 +93,7 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        foreach (Role::roleOptions() as $role) {
+        foreach (Role::options() as $role) {
             Role::updateOrCreate([
                 'name' => $role['name'],
                 'label' => $role['label']
@@ -225,10 +225,12 @@ as the permissions are not associated with any roles. To fix this, you will need
 
 namespace Database\Seeders;
 
-use Salt\Core\Models\Role;
-use Illuminate\Database\Seeder;
-use Salt\Core\Models\Permission;
 use App\Options\PermissionOptions;
+
+use Illuminate\Database\Seeder;
+
+use Salt\Core\Models\Permission;
+use Salt\Core\Models\Role;
 use Salt\Core\Options\RoleOptions;
 
 class RolePermissionSeeder extends Seeder
