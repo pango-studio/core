@@ -1,19 +1,19 @@
 <?php
 
-use Salt\Core\Models\Role;
-use Salt\Core\Models\User;
+use function PHPUnit\Framework\assertArrayHasKey;
+use function PHPUnit\Framework\assertEquals;
+
+use function PHPUnit\Framework\assertInstanceOf;
+use function PHPUnit\Framework\assertIsArray;
+
+use function PHPUnit\Framework\assertNotEquals;
 
 use Salt\Core\Data\MenuItem;
-use Salt\Core\Models\Permission;
-
-use Salt\Core\Models\MenuBuilder;
-
 use Salt\Core\Data\MenuSectionItem;
-use function PHPUnit\Framework\assertEquals;
-use function PHPUnit\Framework\assertIsArray;
-use function PHPUnit\Framework\assertNotEquals;
-use function PHPUnit\Framework\assertInstanceOf;
-use function PHPUnit\Framework\assertArrayHasKey;
+use Salt\Core\Models\MenuBuilder;
+use Salt\Core\Models\Permission;
+use Salt\Core\Models\Role;
+use Salt\Core\Models\User;
 
 it('can be initialized with an empty array and the current user', function () {
     $menu = MenuBuilder::new();
