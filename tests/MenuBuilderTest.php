@@ -10,7 +10,6 @@ use function PHPUnit\Framework\assertNotEquals;
 
 use Salt\Core\Data\MenuItem;
 use Salt\Core\Data\MenuSectionItem;
-use Salt\Core\Data\MenuSubItem;
 use Salt\Core\Models\MenuBuilder;
 use Salt\Core\Models\Permission;
 use Salt\Core\Models\Role;
@@ -70,7 +69,7 @@ it('can add a sub menu to items', function () {
     $subMenu = [
         new MenuItem("Archived users", "admin.users.archived"),
         new MenuItem("Add new user", "admin.users.create"),
-        new MenuItem("Import new users", "admin.users.import")
+        new MenuItem("Import new users", "admin.users.import"),
     ];
 
     $item->addSubMenu(
