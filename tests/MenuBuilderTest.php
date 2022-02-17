@@ -10,6 +10,7 @@ use function PHPUnit\Framework\assertNotEquals;
 
 use Salt\Core\Data\MenuItem;
 use Salt\Core\Data\MenuSectionItem;
+use Salt\Core\Data\MenuSubItem;
 use Salt\Core\Models\MenuBuilder;
 use Salt\Core\Models\Permission;
 use Salt\Core\Models\Role;
@@ -33,16 +34,12 @@ it('can return the array of menu items', function () {
             [
                 "label" => "Assessments",
                 "route" => "admin.assessments",
-                "routeGroup" => null,
                 "icon" => "IconAssessment",
-                "viewBox" => "0 0 20 20",
             ],
             [
                 "label" => "Questions",
                 "route" => "admin.questions",
-                "routeGroup" => null,
                 "icon" => "IconQuestion",
-                "viewBox" => "0 0 32 32",
             ],
         ],
     ];
@@ -55,12 +52,37 @@ it('can return the array of menu items', function () {
 });
 
 it('can add an item to the menu', function () {
-    $item = new MenuItem("Assessments", "admin.assessments", null, "IconAssessment");
+    $item = new MenuItem("Assessments", "admin.assessments", "IconAssessment");
     $menu = MenuBuilder::new()
         ->addItem($item)
         ->build();
 
     assertEquals([$item], $menu);
+});
+
+it('can add a sub menu to items', function () {
+    $item = new MenuItem(
+        "Users",
+        "admin.users",
+        "IconUsers",
+    );
+
+    $subMenu = [
+        new MenuItem("Archived users", "admin.users.archived"),
+        new MenuItem("Add new user", "admin.users.create"),
+        new MenuItem("Import new users", "admin.users.import")
+    ];
+
+    $item->addSubMenu(
+        ...$subMenu
+    );
+
+    $menu = MenuBuilder::new()
+        ->addItem($item)
+        ->build();
+
+
+    assertEquals($subMenu, $menu[0]->subMenu);
 });
 
 it('can add a new section to the menu', function () {
@@ -78,9 +100,7 @@ it('can add a item to a section', function () {
     $item = new MenuItem(
         "Assessments",
         "admin.assessments",
-        null,
         "IconAssessment",
-        "0 0 20 20",
     );
 
     $menu = MenuBuilder::new()
@@ -96,17 +116,13 @@ it('can add multiple items to a section at once', function () {
     $assessmentItem = new MenuItem(
         "Assessments",
         "admin.assessments",
-        null,
         "IconAssessment",
-        "0 0 20 20",
     );
 
     $questionItem = new MenuItem(
         "Questions",
         "admin.questions",
-        null,
         "IconQuestion",
-        "0 0 32 32",
     );
 
     $menu = MenuBuilder::new()
@@ -134,17 +150,13 @@ it("can hide a menu item if the current user doesn't have permission to view it"
     $assessmentItem = new MenuItem(
         "Assessments",
         "admin.assessments",
-        null,
         "IconAssessment",
-        "0 0 20 20",
     );
 
     $userItem = new MenuItem(
         "Users",
         "admin.users",
-        null,
         "IconUser",
-        "0 0 20 20",
     );
 
     actingAs($user);
