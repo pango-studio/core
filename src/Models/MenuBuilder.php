@@ -24,10 +24,6 @@ class MenuBuilder
     /**
      * Initializes a new menu.
      * If an array of menu items is passed, it prefills the menu with those items
-     *
-     * @param Array|null $items
-     *
-     * @return static
      */
     public static function new(array $items = null): static
     {
@@ -43,10 +39,6 @@ class MenuBuilder
      *
      * If menu items are also passed, it adds each of them to the section,
      * alternatively the section will be an empty array
-     *
-     * @param string $name
-     * @param MenuSectionItem ...$items
-     * @return static
      */
     public function addSection(string $name, MenuSectionItem ...$items): static
     {
@@ -54,7 +46,7 @@ class MenuBuilder
 
         if ($items) {
             foreach ($items as $item) {
-                $this->addItem($name, $item->data, $item->permission);
+                $this->addItem($item->data, $name, $item->permission);
             }
         };
 
@@ -66,21 +58,12 @@ class MenuBuilder
      *
      * If the current user does not have permission to view the menu item,
      * it will not be included
-     *
-     * @param string $sectionName
-     * @param MenuItem $item
-     * @param string|null $permission
-     * @return static
      */
-    public function addItem(string $sectionName, MenuItem $item, string $permission = null): static
+    public function addItem(MenuItem $item, string $sectionName = null, string $permission = null): static
     {
-        if ($permission) {
-            if ($this->user->hasPermission($permission)) {
-                $this->menu[$sectionName][] = $item;
-            }
-        } else {
-            $this->menu[$sectionName][] = $item;
-        }
+        !is_null($sectionName)
+            ? $this->addItemToSection($item, $sectionName, $permission)
+            : $this->addItemToMenu($item, $permission);
 
         return $this;
     }
@@ -93,5 +76,34 @@ class MenuBuilder
     public function build(): array
     {
         return $this->menu;
+    }
+
+
+    /**
+     * Add the item to the menu
+     */
+    private function addItemToMenu(MenuItem $item, string $permission = null): void
+    {
+        if ($permission) {
+            if ($this->user->hasPermission($permission)) {
+                $this->menu[] = $item;
+            }
+        } else {
+            $this->menu[] = $item;
+        }
+    }
+
+    /**
+     * Add the item to a menu section
+     */
+    private function addItemToSection(MenuItem $item, string $sectionName, string $permission = null): void
+    {
+        if ($permission) {
+            if ($this->user->hasPermission($permission)) {
+                $this->menu[$sectionName][] = $item;
+            }
+        } else {
+            $this->menu[$sectionName][] = $item;
+        }
     }
 }

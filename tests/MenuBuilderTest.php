@@ -54,6 +54,16 @@ it('can return the array of menu items', function () {
     assertEquals([$array], $menu);
 });
 
+it('can add an item to the menu', function () {
+
+    $item = new MenuItem("Assessments", "admin.assessments", null, "IconAssessment");
+    $menu = MenuBuilder::new()
+        ->addItem($item)
+        ->build();
+
+    assertEquals([$item], $menu);
+});
+
 it('can add a new section to the menu', function () {
     $menu = MenuBuilder::new()
         ->addSection("title")
@@ -75,7 +85,7 @@ it('can add a item to a section', function () {
     );
 
     $menu = MenuBuilder::new()
-        ->addItem($sectionName, $item)
+        ->addItem($item, $sectionName)
         ->build();
 
     assertArrayHasKey($sectionName, $menu);
@@ -142,8 +152,8 @@ it("can hide a menu item if the current user doesn't have permission to view it"
 
     $menu = MenuBuilder::new()
         ->addSection('section')
-        ->addItem('section', $assessmentItem, $assessmentPermission->name)
-        ->addItem('section', $userItem, $userPermission->name)
+        ->addItem($assessmentItem, 'section', $assessmentPermission->name)
+        ->addItem($userItem, 'section', $userPermission->name)
         ->build();
 
     assertNotEquals($menu, ['section' => [$assessmentItem, $userItem]]);
