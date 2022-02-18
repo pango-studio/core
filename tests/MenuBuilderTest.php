@@ -63,7 +63,7 @@ it('can add a sub menu to items', function () {
     $item = new MenuItem(
         "Users",
         "admin.users",
-        "IconUsers",
+        "IconUser",
     );
 
     $subMenu = [
