@@ -160,7 +160,7 @@ Or use the `addSubMenu()` method:
     );
 ```
 
-## Menu Sections
+## Menu sections
 
 If you want to group menu items together, you can add a section and then place the items in that instead of adding them directly to the root of the menu.
 
