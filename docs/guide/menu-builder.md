@@ -155,7 +155,7 @@ Or use the `addSubMenu()` method:
         new MenuItem("Import new users", "admin.users.import"),
     ];
 
-        $item->addSubMenu(
+    $item->addSubMenu(
         ...$subMenu
     );
 ```
@@ -164,7 +164,7 @@ Or use the `addSubMenu()` method:
 
 If you want to group menu items together, you can add a section and then place the items in that instead of adding them directly to the root of the menu.
 
-## Adding sections to the menu
+### Adding sections to the menu
 
 `public function addSection(string $name, MenuSectionItem ...$items): static`
 
