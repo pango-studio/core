@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class GetCurrentUser
 {
     protected $user;
+    protected $userModel;
+    protected bool $enableImpersonation;
 
     public function __construct(Authenticatable $userModel)
     {

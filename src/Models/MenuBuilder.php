@@ -2,7 +2,6 @@
 
 namespace Salt\Core\Models;
 
-use Illuminate\Support\Facades\Auth;
 use Salt\Core\Data\MenuItem;
 use Salt\Core\Data\MenuSectionItem;
 use Salt\Core\Facades\CurrentUser;
@@ -10,8 +9,7 @@ use Salt\Core\Facades\CurrentUser;
 class MenuBuilder
 {
     protected array $menu = [];
-    protected User|null $user;
-
+    protected $user;
 
     /**
      * @param Array|null $items
