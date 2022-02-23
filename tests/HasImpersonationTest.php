@@ -1,15 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
-use Salt\Core\Models\Role;
-use Salt\Core\Models\User;
 use Illuminate\Support\Facades\Session;
-use Salt\Core\Facades\CurrentUser;
-use Symfony\Component\HttpFoundation\Response;
-
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertFalse;
+
 use function PHPUnit\Framework\assertTrue;
+use Salt\Core\Models\Role;
+use Salt\Core\Models\User;
 
 beforeEach(function () {
     $this->admin = User::factory()->create();

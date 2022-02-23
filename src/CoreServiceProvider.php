@@ -24,7 +24,8 @@ class CoreServiceProvider extends PackageServiceProvider
 
         $this->app->bind('currentuser', function () {
             $userModel = config('core.user');
-            return new GetCurrentUser(new $userModel);
+
+            return new GetCurrentUser(new $userModel());
         });
     }
 

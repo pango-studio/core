@@ -3,12 +3,11 @@
 namespace Salt\Core\Traits;
 
 use Illuminate\Support\Facades\Session;
-use Salt\Core\Facades\CurrentUser;
 
 trait HasImpersonation
 {
     /**
-     * Adds a new session variable 'impersonation' which contains the ID of the 
+     * Adds a new session variable 'impersonation' which contains the ID of the
      * user being impersonated
      *
      * @param Integer $id
@@ -32,7 +31,7 @@ trait HasImpersonation
     /**
      * Checks if the 'impersonation' variable exists in the session
      *
-     * @return boolean
+     * @return bool
      */
     public static function isImpersonating(): bool
     {
@@ -46,7 +45,7 @@ trait HasImpersonation
      */
     public static function getImpersonatedUser()
     {
-        $user =  new (config('core.user'));
+        $user = new (config('core.user'));
 
         return $user->find(Session::get('impersonation'));
     }

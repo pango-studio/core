@@ -1,11 +1,11 @@
 <?php
 
-use Salt\Core\Facades\CurrentUser;
-use Salt\Core\Models\Role;
-use Salt\Core\Models\User;
-
 use function Pest\Laravel\actingAs;
 use function PHPUnit\Framework\assertEquals;
+use Salt\Core\Facades\CurrentUser;
+
+use Salt\Core\Models\Role;
+use Salt\Core\Models\User;
 
 beforeEach(function () {
     $this->admin = User::factory()->create();
