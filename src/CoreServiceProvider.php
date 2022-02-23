@@ -4,6 +4,7 @@ namespace Salt\Core;
 
 use Illuminate\Routing\Router;
 use Salt\Core\Commands\GenerateOptionsClassCommand;
+use Salt\Core\Helpers\GetCurrentUser;
 use Salt\Core\Middleware\PermissionChecker;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -20,6 +21,11 @@ class CoreServiceProvider extends PackageServiceProvider
                 GenerateOptionsClassCommand::class,
             ]);
         }
+
+        $this->app->bind('currentuser', function () {
+            $userModel = config('core.user');
+            return new GetCurrentUser(new $userModel);
+        });
     }
 
     public function configurePackage(Package $package): void
