@@ -1,19 +1,19 @@
 <?php
 
-use function PHPUnit\Framework\assertArrayHasKey;
-use function PHPUnit\Framework\assertEquals;
-
-use function PHPUnit\Framework\assertInstanceOf;
-use function PHPUnit\Framework\assertIsArray;
-
-use function PHPUnit\Framework\assertNotEquals;
-
-use Salt\Core\Data\MenuItem;
-use Salt\Core\Data\MenuSectionItem;
-use Salt\Core\Models\MenuBuilder;
-use Salt\Core\Models\Permission;
 use Salt\Core\Models\Role;
 use Salt\Core\Models\User;
+
+use Salt\Core\Data\MenuItem;
+use Salt\Core\Models\Permission;
+
+use Salt\Core\Models\MenuBuilder;
+
+use Salt\Core\Data\MenuSectionItem;
+use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertIsArray;
+use function PHPUnit\Framework\assertNotEquals;
+use function PHPUnit\Framework\assertInstanceOf;
+use function PHPUnit\Framework\assertArrayHasKey;
 
 it('can be initialized with an empty array and the current user', function () {
     $menu = MenuBuilder::new();
@@ -180,5 +180,60 @@ it("can hide a menu item if the current user doesn't have permission to view it"
         ->build();
 
     assertNotEquals($menu, ['section' => [$assessmentItem, $userItem]]);
+    assertEquals($menu, ['section' => [$assessmentItem]]);
+});
+
+it('shows the menu items that the impersonated user is allowed to see', function () {
+    $admin = User::factory()->create();
+    $user = User::factory()->create();
+
+    $assessmentPermission = Permission::factory()->create(['name' => 'view-assessments']);
+    $userPermission = Permission::factory()->create(['name' => 'manage-users']);
+
+    $adminRole = Role::factory()->create(['name' => 'admin']);
+    $adminRole->permissions()->attach($assessmentPermission);
+    $adminRole->permissions()->attach($userPermission);
+    $admin->roles()->syncWithoutDetaching($adminRole);
+
+    $editorRole = Role::factory()->create(['name' => 'editor']);
+    $editorRole->permissions()->attach($assessmentPermission);
+    $user->roles()->syncWithoutDetaching($editorRole);
+
+    $assessmentItem = new MenuItem(
+        "Assessments",
+        "admin.assessments",
+        "IconAssessment",
+    );
+
+    $userItem = new MenuItem(
+        "Users",
+        "admin.users",
+        "IconUser",
+    );
+
+    actingAs($admin);
+
+    $menu = MenuBuilder::new()
+        ->addSection(
+            'section',
+            new MenuSectionItem($assessmentItem, $assessmentPermission->name),
+            new MenuSectionItem($userItem, $userPermission->name)
+        )
+        ->build();
+
+    // The admin user sees both menu items 
+    assertEquals($menu, ['section' => [$assessmentItem, $userItem]]);
+
+    User::startImpersonating($user->id);
+
+    $menu = MenuBuilder::new()
+        ->addSection(
+            'section',
+            new MenuSectionItem($assessmentItem, $assessmentPermission->name),
+            new MenuSectionItem($userItem, $userPermission->name)
+        )
+        ->build();
+
+    // The impersonated user only sees the assessment menu item
     assertEquals($menu, ['section' => [$assessmentItem]]);
 });
