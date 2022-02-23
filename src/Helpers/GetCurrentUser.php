@@ -2,8 +2,8 @@
 
 namespace Salt\Core\Helpers;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class GetCurrentUser
 {
@@ -20,7 +20,7 @@ class GetCurrentUser
 
     /**
      * Returns the model for the currently authenticated user. If there is an active impersonation setting,
-     * returns the model for the impersonated user instead 
+     * returns the model for the impersonated user instead
      */
     public function get(): ?Authenticatable
     {
@@ -32,7 +32,7 @@ class GetCurrentUser
     }
 
     /**
-     * Turns off impersonation. The authenticated user will be returned regardless of the active impersonation session 
+     * Turns off impersonation. The authenticated user will be returned regardless of the active impersonation session
      */
     public function disableImpersonation(): static
     {
