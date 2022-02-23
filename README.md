@@ -36,7 +36,7 @@ php artisan vendor:publish --tag="core-config"
 
 This is the contents of the published config file:
 
-```php
+````php
 return [
     'mail' => array(
         'mandrill' => array(
@@ -44,11 +44,12 @@ return [
             'template' => env('MANDRILL_TEMPLATE', '')
         )
     ),
-    'permissions' => PermissionOptions::$permissionsArray,
-    'roles' => RoleOptions::$rolesArray,
-    'url' => env('APP_URL', '')
+    'permissions' => \Salt\Core\Options\PermissionOptions::$permissionsArray,
+    'roles' => \Salt\Core\Options\RoleOptions::$rolesArray,
+    'url' => env('APP_URL', ''),
+    'user' => \Salt\Core\Models\User::class
 ];
-```
+
 
 ## Documentation
 
@@ -58,7 +59,7 @@ return [
 
 ```bash
 composer test
-```
+````
 
 ## Changelog
 
