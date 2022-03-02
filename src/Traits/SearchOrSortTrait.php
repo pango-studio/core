@@ -6,7 +6,6 @@ trait SearchOrSortTrait
 {
     public function scopeSearchOrSort($query, $request, $sort_columns = [])
     {
-
         $sort_column = isset($request['column']) && !empty($request['column']) ? $request['column'] : null;
         $sort_direction = isset($request['direction']) ? $request['direction'] : 'asc';
         $term = isset($request['query']) ? $request['query'] : '';
@@ -23,6 +22,7 @@ trait SearchOrSortTrait
         if ($sort_column) {
             $query->orderBy($sort_column, $sort_direction);
         }
+
         return $query;
     }
 }
