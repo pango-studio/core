@@ -8,7 +8,6 @@ beforeEach(function () {
 });
 
 it('paginates with 10 items per page by default', function () {
-
     assertEquals(User::perPagePaginate(), User::paginate(10));
 });
 
