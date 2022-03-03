@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Salt\Core\Traits\HasImpersonation;
 use Salt\Core\Traits\HasRoles;
+use Salt\Core\Traits\PerPagePaginateTrait;
+use Salt\Core\Traits\SearchOrSortTrait;
 
 /**
  * Salt\Core\Models\User
@@ -19,6 +21,8 @@ class User extends Authenticatable
     use HasFactory;
     use HasImpersonation;
     use HasRoles;
+    use PerPagePaginateTrait;
+    use SearchOrSortTrait;
 
     protected $fillable = [
         'name', 'email', 'sub',
