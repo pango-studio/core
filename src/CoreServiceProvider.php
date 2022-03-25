@@ -5,7 +5,7 @@ namespace Salt\Core;
 use Illuminate\Routing\Router;
 use Salt\Core\Commands\GenerateOptionsClassCommand;
 use Salt\Core\Helpers\GetCurrentUser;
-use Salt\Core\Middleware\PermissionChecker;
+use Salt\Core\Http\Middleware\PermissionChecker;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 

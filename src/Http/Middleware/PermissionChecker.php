@@ -1,6 +1,6 @@
 <?php
 
-namespace Salt\Core\Middleware;
+namespace Salt\Core\Http\Middleware;
 
 use Closure;
 use Illuminate\Auth\Access\AuthorizationException;
