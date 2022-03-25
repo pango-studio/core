@@ -4,6 +4,7 @@ namespace Salt\Core\Http\Middleware;
 
 use Closure;
 use Illuminate\Auth\Access\AuthorizationException;
+use Salt\Core\Facades\CurrentUser;
 
 class PermissionChecker
 {
@@ -22,7 +23,7 @@ class PermissionChecker
             return redirect()->route('login');
         }
 
-        $user = $request->user();
+        $user = CurrentUser::get();
         if (!$user->hasPermission($permission)) {
             throw new AuthorizationException(__('middleware.noPermission'));
         }
