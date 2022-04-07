@@ -25,7 +25,7 @@ class PermissionChecker
 
         $user = CurrentUser::get();
         if (!$user->hasPermission($permission)) {
-            throw new AuthorizationException(__('middleware.noPermission'));
+            throw new AuthorizationException("You do not have permission to view this page");
         }
 
         return $next($request);
