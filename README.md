@@ -3,6 +3,8 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/pango-studio/salt-core/Check%20&%20fix%20styling?label=code%20style)](https://github.com/pango-studio/salt-core/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/salt/core.svg?style=flat-square)](https://packagist.org/packages/salt/core)
 
+[Netlify - Package Documentation Home](https://salt-core-package.netlify.app/)
+
 This package houses core logic, templates and components used by Laravel applications built by the Salt team.
 
 It has the following features:
