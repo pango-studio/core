@@ -15,10 +15,11 @@ class MenuItem extends Data
      */
     public function __construct(
         public string $label,
-        public string $route,
+        public string|null $route,
         public string|null $icon = null,
         public string $viewBox = "0 0 32 32",
-        public array|null $subMenu = null
+        public array|null $subMenu = null,
+        public string|null $href = null,
     ) {
     }
 
