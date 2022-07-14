@@ -20,6 +20,7 @@ class MandrillService
      * @param String $metadata The email meta data
      * @param Array $merge_vars
      *
+     * 
      * @return Array $result an array containing the result from Mandrill API
      */
     public static function sendTemplateMail($recipient_email, $html_content, $subject, $from_email, $from_name, $reply_to_email, $metadata, $merge_vars = null): Array
