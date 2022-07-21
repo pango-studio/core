@@ -35,7 +35,7 @@ it('can check if user has a specific permission', function () {
     $role = Role::factory()->create(['name' => 'admin']);
     $role->permissions()->attach($permission);
 
-    
+
     $this->testUser->addRole('admin');
 
     assertTrue($this->testUser->hasPermission($permission->name));

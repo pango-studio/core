@@ -2,13 +2,12 @@
 
 namespace Salt\Core\Models;
 
-use Salt\Core\Traits\HasRoles;
-use Salt\Core\Models\Permission;
-use Salt\Core\Traits\HasImpersonation;
-use Salt\Core\Traits\SearchOrSortTrait;
-use Salt\Core\Traits\PerPagePaginateTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Salt\Core\Traits\HasImpersonation;
+use Salt\Core\Traits\HasRoles;
+use Salt\Core\Traits\PerPagePaginateTrait;
+use Salt\Core\Traits\SearchOrSortTrait;
 
 /**
  * Salt\Core\Models\User
@@ -38,7 +37,6 @@ class User extends Authenticatable
     {
         return $this->permissions()->where('name', $permission)->exists();
     }
-
 
     public function rolePermissions()
     {

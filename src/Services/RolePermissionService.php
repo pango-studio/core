@@ -22,27 +22,24 @@ class RolePermissionService
 
     public static function syncUserRolePermissions(int $user_id)
     {
-
         $user = User::find($user_id);
         $role_permissions = $user->rolePermissions()->pluck('id');
-     
+
         $user->permissions()->syncWithoutDetaching($role_permissions);
-        
+
 
         return true;
     }
 
     public static function syncRolePermissions(int $role_id)
     {
-        $users = User::whereHas('roles', function($q) use ($role_id) {
+        $users = User::whereHas('roles', function ($q) use ($role_id) {
             $q->where('role_id', $role_id);
         })->get();
         foreach ($users as $key => $user) {
-            self::removeUserRolePermissions($role_id,$user->id);
-        
+            self::removeUserRolePermissions($role_id, $user->id);
         }
 
         return true;
     }
-
 }

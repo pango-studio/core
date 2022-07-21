@@ -3,12 +3,10 @@
 namespace Salt\Core;
 
 use Illuminate\Routing\Router;
-use Salt\Core\Models\UserRole;
-use Salt\Core\Helpers\GetCurrentUser;
-use Spatie\LaravelPackageTools\Package;
-use Salt\Core\Observers\UserRoleObserver;
-use Salt\Core\Http\Middleware\PermissionChecker;
 use Salt\Core\Commands\GenerateOptionsClassCommand;
+use Salt\Core\Helpers\GetCurrentUser;
+use Salt\Core\Http\Middleware\PermissionChecker;
+use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class CoreServiceProvider extends PackageServiceProvider
@@ -26,12 +24,10 @@ class CoreServiceProvider extends PackageServiceProvider
 
         $this->app->bind('currentuser', function () {
             $userModel = config('core.user');
+
             return new GetCurrentUser(new $userModel());
         });
-
     }
-  
-   
 
     public function configurePackage(Package $package): void
     {
@@ -56,5 +52,4 @@ class CoreServiceProvider extends PackageServiceProvider
             ->hasCommand(GenerateOptionsClassCommand::class)
             ->hasTranslations();
     }
-
 }

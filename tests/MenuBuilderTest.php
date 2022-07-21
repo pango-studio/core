@@ -1,21 +1,19 @@
 <?php
 
+use function PHPUnit\Framework\assertArrayHasKey;
+use function PHPUnit\Framework\assertEquals;
+
+use function PHPUnit\Framework\assertInstanceOf;
+
+use function PHPUnit\Framework\assertIsArray;
+
+use function PHPUnit\Framework\assertNotEquals;
+use Salt\Core\Data\MenuItem;
+use Salt\Core\Data\MenuSectionItem;
+use Salt\Core\Models\MenuBuilder;
+use Salt\Core\Models\Permission;
 use Salt\Core\Models\Role;
 use Salt\Core\Models\User;
-
-use Salt\Core\Data\MenuItem;
-use Salt\Core\Models\UserRole;
-
-use Salt\Core\Models\Permission;
-
-use Salt\Core\Models\MenuBuilder;
-use Salt\Core\Data\MenuSectionItem;
-use function PHPUnit\Framework\assertEquals;
-use function PHPUnit\Framework\assertIsArray;
-use function PHPUnit\Framework\assertNotEquals;
-use function PHPUnit\Framework\assertInstanceOf;
-use function PHPUnit\Framework\assertArrayHasKey;
-use function PHPUnit\Framework\assertClassHasAttribute;
 
 it('can be initialized with an empty array and the current user', function () {
     $menu = MenuBuilder::new();
@@ -196,7 +194,7 @@ it('shows the menu items that the impersonated user is allowed to see', function
     $adminRole->permissions()->attach($assessmentPermission);
     $adminRole->permissions()->attach($userPermission);
     $admin->roles()->syncWithoutDetaching($adminRole);
- 
+
 
     $editorRole = Role::factory()->create(['name' => 'editor']);
     $editorRole->permissions()->attach($assessmentPermission);
@@ -234,7 +232,7 @@ it('shows the menu items that the impersonated user is allowed to see', function
             new MenuSectionItem($assessmentItem, $assessmentPermission->name),
             new MenuSectionItem($userItem, $userPermission->name)
         );
-        $menu = $menu->build();
+    $menu = $menu->build();
 
     // The impersonated user only sees the assessment menu item
     assertEquals($menu, ['section' => [$assessmentItem]]);

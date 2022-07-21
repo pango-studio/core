@@ -2,10 +2,8 @@
 
 namespace Salt\Core\Models;
 
-use Salt\Core\Models\UserRole;
-use Salt\Core\Models\RolePermission;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Salt\Core\Models\Role
@@ -32,6 +30,5 @@ class Role extends Model
     public function users()
     {
         return $this->belongsToMany(config('auth.providers.users.model'))->using(UserRole::class);
-
     }
 }

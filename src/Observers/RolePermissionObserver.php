@@ -29,7 +29,5 @@ class RolePermissionObserver
     {
         $rp_serivce = new RolePermissionService();
         $rp_serivce->syncRolePermissions($role_permission->role_id);
-       
     }
-
 }
