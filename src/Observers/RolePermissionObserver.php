@@ -31,5 +31,4 @@ class RolePermissionObserver
         $rp_serivce->removeRolePermissions($role_permission->role_id, $role_permission->permission_id);
        
     }
-
 }

@@ -2,9 +2,9 @@
 
 namespace Salt\Core\Traits;
 
+use Illuminate\Database\Eloquent\Builder;
 use Salt\Core\Models\Role;
 use Salt\Core\Models\UserRole;
-use Illuminate\Database\Eloquent\Builder;
 
 trait HasRoles
 {
@@ -29,8 +29,6 @@ trait HasRoles
         return $this->roles()
             ->syncWithoutDetaching(Role::where('name', $role)->first());
     }
-
- 
 
     public function roles()
     {

@@ -2,8 +2,8 @@
 
 namespace Salt\Core\Models;
 
-use Salt\Core\Observers\RolePermissionObserver;
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Salt\Core\Observers\RolePermissionObserver;
 
 /**
  * Salt\Core\Models\Role
@@ -13,12 +13,11 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  */
 class RolePermission extends Pivot
 {
-    protected $table =  'permission_role';
+    protected $table = 'permission_role';
 
     public static function boot()
     {
         parent::boot();
         RolePermission::observe(RolePermissionObserver::class);
     }
-
 }
