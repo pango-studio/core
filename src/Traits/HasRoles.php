@@ -47,5 +47,4 @@ trait HasRoles
             ->unique('id')
             ->values();
     }
- 
 }

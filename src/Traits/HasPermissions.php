@@ -2,9 +2,8 @@
 
 namespace Salt\Core\Traits;
 
-
-use Salt\Core\Models\Permission;
 use Illuminate\Database\Eloquent\Builder;
+use Salt\Core\Models\Permission;
 
 trait HasPermissions
 {
@@ -28,8 +27,4 @@ trait HasPermissions
     {
         return $this->permissions()->where('name', $permission)->exists();
     }
-
-
-   
- 
 }
