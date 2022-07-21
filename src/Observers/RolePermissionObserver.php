@@ -28,7 +28,7 @@ class RolePermissionObserver
     public function deleted(RolePermission $role_permission)
     {
         $rp_serivce = new RolePermissionService();
-        $rp_serivce->syncRolePermissions($role_permission->role_id);
+        $rp_serivce->removeRolePermissions($role_permission->role_id, $role_permission->permission_id);
        
     }
 

@@ -9,6 +9,7 @@ use Salt\Core\Traits\SearchOrSortTrait;
 use Salt\Core\Traits\PerPagePaginateTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Salt\Core\Traits\HasPermissions;
 
 /**
  * Salt\Core\Models\User
@@ -22,6 +23,7 @@ class User extends Authenticatable
     use HasFactory;
     use HasImpersonation;
     use HasRoles;
+    use HasPermissions;
     use PerPagePaginateTrait;
     use SearchOrSortTrait;
 
@@ -29,27 +31,5 @@ class User extends Authenticatable
         'name', 'email', 'sub',
     ];
 
-    public function permissions()
-    {
-        return $this->belongsToMany(Permission::class, 'permission_user')->withTimestamps();
-    }
-
-    public function hasPermission($permission)
-    {
-        return $this->permissions()->where('name', $permission)->exists();
-    }
-
-
-    public function rolePermissions()
-    {
-        return $this
-            ->roles()
-            ->whereHas('permissions')
-            ->with('permissions')
-            ->get()
-            ->pluck('permissions')
-            ->flatten()
-            ->unique('id')
-            ->values();
-    }
+ 
 }

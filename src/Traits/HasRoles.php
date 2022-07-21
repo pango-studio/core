@@ -37,5 +37,17 @@ trait HasRoles
         return $this->belongsToMany(Role::class)->using(UserRole::class);
     }
 
+    public function rolePermissions()
+    {
+        return $this
+            ->roles()
+            ->whereHas('permissions')
+            ->with('permissions')
+            ->get()
+            ->pluck('permissions')
+            ->flatten()
+            ->unique('id')
+            ->values();
+    }
  
 }
