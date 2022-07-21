@@ -82,7 +82,9 @@ class MandrillService
          */
         $result = $mandrill->messages->sendTemplate($body);
 
-        if (gettype($result) === 'array') return (object) $result;
+        if (gettype($result) === 'array') {
+            return (object) $result;
+        }
 
         return $result;
     }
