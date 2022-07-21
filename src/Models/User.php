@@ -34,6 +34,12 @@ class User extends Authenticatable
         return $this->belongsToMany(Permission::class, 'permission_user')->withTimestamps();
     }
 
+    public function hasPermission($permission)
+    {
+        return $this->permissions()->where('name', $permission)->exists();
+    }
+
+
     public function rolePermissions()
     {
         return $this

@@ -46,10 +46,11 @@ class MenuBuilder
 
         if ($items) {
             foreach ($items as $item) {
-                $this->addItem($item->data, $name, $item->permission);
+               
+                $this->addItemToSection($item->data, $name, $item->permission);
             }
         };
-
+       
         return $this;
     }
 
@@ -104,5 +105,10 @@ class MenuBuilder
         } else {
             $this->menu[$sectionName][] = $item;
         }
+    }
+
+    public function getMenu()
+    {
+        return $this->menu;
     }
 }

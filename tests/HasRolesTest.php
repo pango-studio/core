@@ -35,9 +35,10 @@ it('can check if user has a specific permission', function () {
     $role = Role::factory()->create(['name' => 'admin']);
     $role->permissions()->attach($permission);
 
+    
     $this->testUser->addRole('admin');
 
-    assertTrue($this->testUser->hasPermission('view-admin-dashboard'));
+    assertTrue($this->testUser->hasPermission($permission->name));
 });
 
 it('can fetch all roles that the user belongs to', function () {
@@ -59,7 +60,6 @@ it('can fetch all permissions that the user has', function () {
     $role->permissions()->attach($permission2);
 
     $this->testUser->roles()->syncWithoutDetaching($role);
-
-    assertTrue($this->testUser->permissions()->contains('name', $permission->name));
-    assertTrue($this->testUser->permissions()->contains('name', $permission2->name));
+    assertTrue($this->testUser->hasPermission($permission->name));
+    assertTrue($this->testUser->hasPermission($permission2->name));
 });

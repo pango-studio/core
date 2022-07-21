@@ -2,8 +2,9 @@
 
 namespace Salt\Core\Traits;
 
-use Illuminate\Database\Eloquent\Builder;
 use Salt\Core\Models\Role;
+use Salt\Core\Models\UserRole;
+use Illuminate\Database\Eloquent\Builder;
 
 trait HasRoles
 {
@@ -26,29 +27,15 @@ trait HasRoles
     public function addRole($role)
     {
         return $this->roles()
-            ->syncWithoutDetaching(Role::where('name', $role)->firstOrFail());
+            ->syncWithoutDetaching(Role::where('name', $role)->first());
     }
 
-    public function hasPermission($permission)
-    {
-        return $this->permissions()->contains('name', $permission);
-    }
+ 
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class)->using(UserRole::class);
     }
 
-    public function permissions()
-    {
-        return $this
-            ->roles()
-            ->whereHas('permissions')
-            ->with('permissions')
-            ->get()
-            ->pluck('permissions')
-            ->flatten()
-            ->unique('name')
-            ->values();
-    }
+ 
 }

@@ -52,6 +52,7 @@
         "test-coverage": "vendor/bin/pest coverage"
     },
     "config": {
+        "platform-check": false,
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
