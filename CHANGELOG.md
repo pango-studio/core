@@ -2,6 +2,10 @@
 
 All notable changes to `core` will be documented in this file.
 
+## Upcoming for release
+
+- Adds new permissions methods to support nested dependencies
+
 ## v0.0.8 - 2022-03-25
 
 ## What's Changed
