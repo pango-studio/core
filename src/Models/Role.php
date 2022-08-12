@@ -31,4 +31,9 @@ class Role extends Model
     {
         return $this->belongsToMany(config('auth.providers.users.model'))->using(UserRole::class);
     }
+
+    public function hasPermission($permission)
+    {
+        return $this->permissions()->where('name', $permission)->exists();
+    }
 }
