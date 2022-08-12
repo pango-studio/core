@@ -4,6 +4,7 @@ namespace Salt\Core\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Salt\Core\Models\Permission;
+use Salt\Core\Models\UserPermission;
 
 trait HasPermissions
 {
@@ -20,7 +21,7 @@ trait HasPermissions
 
     public function permissions()
     {
-        return $this->belongsToMany(Permission::class, 'permission_user')->withTimestamps();
+        return $this->belongsToMany(Permission::class, 'permission_user')->withTimestamps()->using(UserPermission::class);
     }
 
     public function hasPermission($permission)
