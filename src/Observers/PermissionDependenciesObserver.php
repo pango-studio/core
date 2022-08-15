@@ -8,7 +8,8 @@ use Salt\Core\Services\UserPermissionService;
 
 class PermissionDependenciesObserver
 {
-    public function __construct(UserPermissionService $user_permission_service ){
+    public function __construct(UserPermissionService $user_permission_service)
+    {
         $this->user_permission_service = $user_permission_service;
     }
 
