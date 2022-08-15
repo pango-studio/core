@@ -1,6 +1,8 @@
 <?php
 
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertFalse;
+use function PHPUnit\Framework\assertTrue;
 
 use Salt\Core\Exceptions\PermissionDependencyException;
 use Salt\Core\Models\Permission;
@@ -42,4 +44,9 @@ it('allows the dependent permission to be deleted and removes dependent relation
 
     $this->perm2->delete();
     assertEquals(count($this->perm1->dependants()->get()), 0);
+});
+
+it('can check whether peers are required', function () {
+    assertFalse($this->perm1->requiresPermissions());
+    assertTrue($this->perm2->requiresPermissions());
 });

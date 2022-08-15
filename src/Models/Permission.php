@@ -36,8 +36,8 @@ class Permission extends Model
         return $this->belongsToMany(self::class, PeerPermission::class, 'permission_id', 'peer_id')->withTimestamps();
     }
 
-    public function requiresPeers()
+    public function requiresPermissions()
     {
-        return $this->peers()->count() > 0;
+        return $this->dependencies()->count() > 0;
     }
 }
