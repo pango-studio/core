@@ -17,7 +17,6 @@ class UserPermissionService
         foreach( $dependencies as $perm ){
             if( !$user->hasPermission($perm) ){
                 throw new PermissionDependencyException('User requires ' . $perm->name . ' permission in order to be granted ' . $permission->name );
-                return false;
             }
         }
     }
