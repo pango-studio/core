@@ -3,9 +3,11 @@
 use Illuminate\Foundation\Http\FormRequest;
 
 use Illuminate\Pagination\LengthAwarePaginator;
+
 use function PHPUnit\Framework\assertEquals;
 
 use function PHPUnit\Framework\assertTrue;
+
 use Salt\Core\Collections\TableDataCollection;
 use Salt\Core\Models\User;
 

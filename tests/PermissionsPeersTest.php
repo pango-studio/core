@@ -1,13 +1,10 @@
 <?php
 
-use function PHPUnit\Framework\assertFalse;
-use function PHPUnit\Framework\assertTrue;
 use function PHPUnit\Framework\assertEquals;
 
-use Salt\Core\Models\Permission;
-use Salt\Core\Models\Role;
-use Salt\Core\Models\User;
 use Salt\Core\Exceptions\PermissionDependencyException;
+use Salt\Core\Models\Permission;
+use Salt\Core\Models\User;
 
 beforeEach(function () {
     $this->test_user = User::factory()->create();

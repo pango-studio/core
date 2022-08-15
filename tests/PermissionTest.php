@@ -1,10 +1,12 @@
 <?php
 
 use Illuminate\Database\QueryException;
+
 use function Pest\Faker\faker;
 use function PHPUnit\Framework\assertEquals;
 
 use function PHPUnit\Framework\assertTrue;
+
 use Salt\Core\Models\Permission;
 
 use Salt\Core\Models\Role;

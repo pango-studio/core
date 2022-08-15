@@ -2,15 +2,15 @@
 
 namespace Salt\Core\Services;
 
-use Salt\Core\Models\Role;
-use Salt\Core\Models\User;
-use Salt\Core\Models\Permission;
-use Salt\Core\Models\UserPermission;
 use Salt\Core\Exceptions\PermissionDependencyException;
+use Salt\Core\Models\Permission;
+use Salt\Core\Models\User;
+use Salt\Core\Models\UserPermission;
 
 class UserPermissionService
 {
-    public static function verifyDependencies( UserPermission $user_permission ){
+    public static function verifyDependencies(UserPermission $user_permission)
+    {
         $permission = Permission::find($user_permission->permission_id);
         $user = User::find($user_permission->user_id);
         $dependencies = $permission->dependencies;
