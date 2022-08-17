@@ -1,6 +1,6 @@
 {
     "name": "core",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Package containing core logic, templates and components used across Salt web apps",
     "scripts": {
         "docs:dev": "vuepress dev docs",
