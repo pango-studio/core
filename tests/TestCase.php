@@ -48,6 +48,9 @@ class TestCase extends Orchestra
         $permissionUserTable = include  __DIR__ . '/../database/migrations/create_permission_user_table.php.stub';
         $permissionUserTable->up();
 
+        $permissionPeerTable = include  __DIR__ . '/../database/migrations/create_permission_peer_table.php.stub';
+        $permissionPeerTable->up();
+
         $settingsTable = include  __DIR__ . '/../database/migrations/create_settings_table.php.stub';
         $settingsTable->up();
 

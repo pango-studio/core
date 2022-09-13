@@ -8,6 +8,7 @@ use function PHPUnit\Framework\assertInstanceOf;
 use function PHPUnit\Framework\assertIsArray;
 
 use function PHPUnit\Framework\assertNotEquals;
+
 use Salt\Core\Data\MenuItem;
 use Salt\Core\Data\MenuSectionItem;
 use Salt\Core\Models\MenuBuilder;

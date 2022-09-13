@@ -1,6 +1,7 @@
 <?php
 
 use function PHPUnit\Framework\assertEquals;
+
 use Salt\Core\Models\User;
 
 beforeEach(function () {

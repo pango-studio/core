@@ -2,6 +2,7 @@
 
 use function Pest\Laravel\actingAs;
 use function PHPUnit\Framework\assertEquals;
+
 use Salt\Core\Facades\CurrentUser;
 
 use Salt\Core\Models\Role;

@@ -1,10 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Session;
+
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertFalse;
 
 use function PHPUnit\Framework\assertTrue;
+
 use Salt\Core\Models\Role;
 use Salt\Core\Models\User;
 

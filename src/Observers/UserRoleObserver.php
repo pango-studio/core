@@ -10,7 +10,7 @@ class UserRoleObserver
     /**
      * Handle the UserRole "created" event.
      *
-     * @param  \App\UserRole  $user_role
+     * @param  UserRole  $user_role
      * @return void
      */
     public function created(UserRole $user_role)
@@ -23,7 +23,7 @@ class UserRoleObserver
     /**
      * Handle the UserRole "deleted" event.
      *
-     * @param  \App\UserRole  $user_role
+     * @param  UserRole  $user_role
      * @return void
      */
     public function deleted(UserRole $user_role)

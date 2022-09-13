@@ -7,6 +7,7 @@ use function PHPUnit\Framework\assertCount;
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertFalse;
 use function PHPUnit\Framework\assertTrue;
+
 use Salt\Core\Models\Setting;
 
 beforeEach(function () {

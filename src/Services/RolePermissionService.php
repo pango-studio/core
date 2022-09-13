@@ -42,4 +42,17 @@ class RolePermissionService
 
         return true;
     }
+
+    public static function removeRolePermissions(int $role_id, int $permission_id)
+    {
+        $users = User::whereHas('roles', function ($q) use ($role_id) {
+            $q->where('role_id', $role_id);
+        })->get();
+        foreach ($users as $key => $user) {
+            $user->permissions()->detach($permission_id);
+            self::removeUserRolePermissions($role_id, $user->id);
+        }
+
+        return true;
+    }
 }

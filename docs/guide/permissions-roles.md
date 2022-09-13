@@ -28,6 +28,21 @@ or whether or not the user can make a particular request:
     }
 ```
 
+You can also determine if a role has a particular permission. 
+
+```php
+    // Roles.php
+    <?php
+    ...
+
+    public function updateRoles()
+    {
+        if( $this->role->hasPermission(Permission::MANAGE_USERS)){
+            ...
+        }
+    }
+```
+
 ## Permissions
 
 A permission is stored in the database with a unique name, e.g 'view-admin-dashboard' or 'manage-users'. The permission can be associated with a role.
@@ -289,3 +304,75 @@ class DatabaseSeeder extends Seeder
 
 You can now use this seeder to define arrays of permissions that you then assign to various roles. Once you seed the databases,
 your users will have the permissions associated with the roles they are linked to and you will be able to check permissions in your logic.
+
+## Nested permissions
+
+It's possible to nest permissions so that a user requires a specific permission in order to be granted another. 
+Permissions can be given dependencies by attaching them. 
+
+```php
+<?php
+
+    $permission1 = Permission::find(1);
+    $permission2->dependencies()->attach($permission1);
+
+```
+
+Normally, you would not allow a permission to be added until prerequisites are met. The example below shows the exception
+that will be thrown if you attempt to attach a permission to a user that doesn't have the required permissions. 
+
+```php
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use Salt\Core\Models\Permission;
+use Salt\Core\Models\Permission;
+use Salt\Core\Exceptions;
+
+class UserPermissionsController extends Controller
+{
+    public function store(User $user, Permission $permission2)
+    {
+        try {
+            $user->permission()->attach( $permission2 );
+        } catch( PermissionDependencyException $e ){
+
+        }
+        // Throws error because user didn't have the prerequisite permissions ($permission1)
+        ...
+    }
+}
+
+```
+
+You can alternatively provide better front end UX whereby the user cannot create permissions except sequentially. Alternatively you can grant the required permissions automatically. In both cases, a nested array should be available in the backend in order to determine the requisite permissions. For example:
+
+```php
+// PermissionOptions.php
+class PermissionOptions
+{
+    public const VIEW_ADMIN_DASHBOARD = 'view-admin-dashboard';
+    public const MANAGE_USERS = 'manage-users';
+
+
+    public static $permissionsArray = [
+        self::VIEW_ADMIN_DASHBOARD,
+        self::MANAGE_USERS,
+    ];
+
+    public static function dependencies(){
+        return [
+            self::VIEW_ADMIN_DASHBOARD => [],
+
+            // Manage users requires dashboard access
+            self::MANAGE_USERS => [
+                self::VIEW_ADMIN_DASHBOARD
+            ]
+        ];
+    }
+}
+
+
