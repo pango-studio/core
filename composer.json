@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.0",
         "loilo/fuse": "^6.5",
         "mailchimp/transactional": "^1.0",
         "spatie/laravel-data": "^1.4",
