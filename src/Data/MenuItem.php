@@ -20,6 +20,7 @@ class MenuItem extends Data
         public string $viewBox = "0 0 32 32",
         public array|null $subMenu = null,
         public string|null $href = null,
+        public array|null $routeGroup = null,
     ) {
     }
 
