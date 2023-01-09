@@ -2,6 +2,14 @@
 
 All notable changes to `core` will be documented in this file.
 
+## 1.1.2 - 2023-01-09
+
+### What's Changed
+
+- Added `routeGroup` attribute to `MenuItem` class to improve downstream app menu item indicator functionality
+
+**Full Changelog**: https://github.com/salthq/salt-core/compare/1.1.1...1.1.2
+
 ## Upcoming for release
 
 - Adds new permissions methods to support nested dependencies
