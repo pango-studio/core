@@ -19,7 +19,7 @@
         "php": "^8.0",
         "loilo/fuse": "^6.5",
         "mailchimp/transactional": "^1.0",
-        "spatie/laravel-data": "^1.4",
+        "spatie/laravel-data": "2.1",
         "spatie/laravel-package-tools": "^1.9.2"
     },
     "require-dev": {
